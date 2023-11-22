@@ -6,20 +6,21 @@ const cors = require("cors");
 const yaml = require("yamljs");
 const swaggerUI = require("swagger-ui-express");
 const apiDocumentation = yaml.load("./api-docs.yaml");
-// const routes = require("./routes");
-const { hostname } = require("os");
+const routes = require("./routes");
 const app = express();
 const { PORT } = process.env;
+const IP_ADDRESS = "127.0.0.1";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(apiDocumentation));
 app.use(cors());
 app.use(morgan("dev"));
-// app.use(routes);
+app.set("view engine", "ejs");
+app.use(routes);
 
 app.get("/", (req, res) => {
-  return res.send("Welcome to -- ITINERARIO API");
+  return res.send("Welcome to -- ITINERGO API");
 });
 
 // handle route statis
@@ -43,5 +44,5 @@ app.use((err, _req, res) => {
 });
 
 app.listen(PORT, () => {
-  return console.log(`running on http://localhost:${PORT}`);
+  return console.log(`running on http://${IP_ADDRESS}:${PORT}`);
 });
