@@ -1,13 +1,13 @@
 const login = require("./login");
 const register = require("./register");
-const update = require("./update");
+const createNewPassword = require("./createNewPassword");
 const resetpw = require("./reset-pw");
 const activation = require("./activation");
 
 module.exports = {
   login,
   register,
-  update,
+  createNewPassword,
   resetpw,
   activation,
 };

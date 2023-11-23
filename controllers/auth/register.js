@@ -50,7 +50,7 @@ module.exports = async (req, res, next) => {
 
     const templateEmail = {
       to: email.toLowerCase(),
-      subject: "Email Verification",
+      subject: "Activate Your Account!",
       html: activateAccount(`http://localhost:8000`),
     };
 
