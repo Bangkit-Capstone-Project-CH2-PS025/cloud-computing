@@ -8,8 +8,7 @@ const swaggerUI = require("swagger-ui-express");
 const apiDocumentation = yaml.load("./api-docs.yaml");
 const routes = require("./routes");
 const app = express();
-const { PORT } = process.env;
-const IP_ADDRESS = "127.0.0.1";
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -43,6 +42,4 @@ app.use((err, _req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  return console.log(`running on http://${IP_ADDRESS}:${PORT}`);
-});
+module.exports = app;

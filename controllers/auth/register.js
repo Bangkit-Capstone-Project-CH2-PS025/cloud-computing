@@ -59,7 +59,14 @@ module.exports = async (req, res, next) => {
     return res.status(201).json({
       status: true,
       message: "create new user successful",
-      data: created,
+      data: {
+        name: created.name,
+        email: created.email,
+        username: created.username,
+        password: created.password,
+        role: created.role,
+        is_verified: created.is_verified,
+      },
     });
   } catch (error) {
     next(error);
