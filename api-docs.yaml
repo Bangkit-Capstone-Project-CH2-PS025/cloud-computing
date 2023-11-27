@@ -1,0 +1,233 @@
+openapi: 3.1.0
+info:
+  title: Itinergo API
+  description: Itinergo API Documentation
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:8000
+    description: Localhost
+  - url: https://xx.com
+    description: Deployment
+
+tags:
+  - name: Authentication
+    description: Authentication API
+
+paths:
+  /auth/register:
+    post:
+      summary: Register New Account
+      description: That's the API to register new account
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              example-body:
+                value:
+                  name: John Doe
+                  email: johndoe@mail.com
+                  username: johndoe
+                  password: admin123
+      responses:
+        "201":
+          description: create new user successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      username:
+                        type: string
+                      password:
+                        type: string
+                      role:
+                        type: string
+                      is_verified:
+                        type: boolean
+              examples:
+                Register user:
+                  value:
+                    status: true
+                    message: create new user successful
+                    data:
+                      name: John Doe
+                      email: johndoe@mail.com
+                      username: johndoe
+                      password: $2b$10$iemmZBsNU.n3w8cwEyW9QuXBioN5Atl/W2RNf9SURQV1Me4TSi0k.
+                      role: USER
+                      is_verified: false
+        "409":
+          description: Username or email is already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Username already exist:
+                  value:
+                    status: false
+                    message: Email or username already exist
+        "400":
+          description: Password and username length
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Username length:
+                  value:
+                    status: false
+                    message: username must be at least 6 characters
+                Password length:
+                  value:
+                    status: false
+                    message: password must be at least 8 characters
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+  /auth/login:
+    post:
+      summary: Login
+      description: That's the API to login
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usernameOrEmail:
+                  type: string
+                password:
+                  type: string
+            examples:
+              example-body:
+                value:
+                  usernameOrEmail: johndoe
+                  password: admin123
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      username:
+                        type: string
+                      role:
+                        type: string
+                  token:
+                    type: string
+              examples:
+                Login successful:
+                  value:
+                    status: true
+                    message: login successful
+                    data:
+                      id: 1
+                      email: johndoe@mail.com
+                      username: johndoe
+                      role: USER
+                    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkZWRlbnNldHlhd2FuMTdAZ21haWwuY29tIiwicm9sZSI6IkJVWUVSIiwiaWF0IjoxNjY5NDYwNTg0LCJleHAiOjE2Njk0NjQxODR9.UpEBOEZ4sVQfWhtzsdcJRUoJyROBVl8z6W528rMtYaY
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                User not found:
+                  value:
+                    message: user not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "401":
+          description: User not verified and password not match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Not Verified:
+                  value:
+                    message: you are not verified, please check your email in message box or spam and then verify your account
+                Password not match:
+                  value:
+                    message: password not match
