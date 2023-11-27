@@ -21,13 +21,15 @@ module.exports = async (req, res, next) => {
 
     if (user.is_verified === VERIFIED.FALSE) {
       return res.status(401).json({
+        status: false,
         message: `you are not verified, please check your email in message box or spam and then verify your account`,
       });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return reply.code(401).send({
+      return res.status(401).json({
+        status: false,
         message: "password doesn't match",
       });
     }

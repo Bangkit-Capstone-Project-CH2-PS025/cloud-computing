@@ -51,7 +51,9 @@ module.exports = async (req, res, next) => {
     const templateEmail = {
       to: email.toLowerCase(),
       subject: "Activate Your Account!",
-      html: activateAccount(`http://localhost:8000`),
+      html: activateAccount(
+        `http://localhost:8000/auth/verify-account?token=${token}`
+      ),
     };
 
     await sendEmail(templateEmail);
@@ -62,6 +64,7 @@ module.exports = async (req, res, next) => {
       data: {
         name: created.name,
         email: created.email,
+        email_token: token,
         username: created.username,
         password: created.password,
         role: created.role,

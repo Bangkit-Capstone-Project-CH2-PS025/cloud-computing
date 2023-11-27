@@ -13,9 +13,7 @@ module.exports = async (req, res, next) => {
       const templateResetPassword = {
         to: req.body.email.toLowerCase(),
         subject: "Reset Your Password!",
-        html: resetPassword(
-          `http://localhost:8000/auth/update-password?email_token=${token}`
-        ),
+        html: resetPassword(`http://localhost:8000/reset-password/${token}`),
       };
       await sendEmail(templateResetPassword);
     }

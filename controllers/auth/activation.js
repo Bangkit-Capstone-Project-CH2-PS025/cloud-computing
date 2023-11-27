@@ -23,11 +23,7 @@ module.exports = async (req, res, next) => {
       }
     );
 
-    return res.status(200).json({
-      status: true,
-      message: "your account has been activated",
-      data: activateUser,
-    });
+    res.render("activation.ejs");
   } catch (error) {
     next(error);
   }
