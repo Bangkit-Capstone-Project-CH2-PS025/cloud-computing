@@ -1,6 +1,5 @@
 const app = require("./app.js");
-const { PORT } = process.env;
-const IP_ADDRESS = "127.0.0.1";
+const { PORT, IP_ADDRESS } = process.env;
 
 app.listen(PORT, () => {
   return console.log(`running on http://${IP_ADDRESS}:${PORT}`);

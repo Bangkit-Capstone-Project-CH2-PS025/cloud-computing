@@ -2,6 +2,7 @@ require("dotenv").config();
 const { User } = require("../../models");
 const { ROLE, VERIFIED } = require("../../handlers/enum.js");
 const { sendEmail } = require("../../utils/email/email.js");
+const { PORT, IP_ADDRESS } = process.env;
 const activateAccount = require("../../utils/email/activateAccountEmail.js");
 const bcrypt = require("bcrypt");
 const crypto = require("node:crypto");
@@ -52,7 +53,7 @@ module.exports = async (req, res, next) => {
       to: email.toLowerCase(),
       subject: "Activate Your Account!",
       html: activateAccount(
-        `http://localhost:8000/auth/verify-account?token=${token}`
+        `http://${IP_ADDRESS}:${PORT}/auth/verify-account?token=${token}`
       ),
     };
 

@@ -1,5 +1,6 @@
 const { User } = require("../../models");
 const { sendEmail } = require("../../utils/email/email.js");
+const { IP_ADDRESS, PORT } = process.env;
 const resetPassword = require("../../utils/email/resetAccountEmail.js");
 
 module.exports = async (req, res, next) => {
@@ -13,7 +14,9 @@ module.exports = async (req, res, next) => {
       const templateResetPassword = {
         to: req.body.email.toLowerCase(),
         subject: "Reset Your Password!",
-        html: resetPassword(`http://localhost:8000/reset-password/${token}`),
+        html: resetPassword(
+          `http://${IP_ADDRESS}:${PORT}/reset-password/${token}`
+        ),
       };
       await sendEmail(templateResetPassword);
     }
