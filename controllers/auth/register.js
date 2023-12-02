@@ -46,6 +46,8 @@ module.exports = async (req, res, next) => {
       username,
       password: hashedPassword,
       role: ROLE.USER,
+      xp: 0,
+      level_id: 1,
       is_verified: VERIFIED.FALSE,
     });
 
@@ -61,7 +63,7 @@ module.exports = async (req, res, next) => {
 
     return res.status(201).json({
       status: true,
-      message: "create new user successful",
+      message: "successfuly create a new user",
       data: {
         name: created.name,
         email: created.email,

@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.belongsTo(models.Level_Traveler, {
+        foreignKey: "level_id",
+        as: "level_traveler",
+      });
     }
   }
   User.init(
@@ -49,6 +52,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM,
         values: ["ADMIN", "USER"],
         allowNull: false,
+      },
+      xp: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      level_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
       is_verified: {
         type: DataTypes.BOOLEAN,

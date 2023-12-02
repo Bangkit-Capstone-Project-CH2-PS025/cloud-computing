@@ -49,6 +49,14 @@ module.exports = {
         type: Sequelize.ENUM,
         values: ["ADMIN", "USER"],
       },
+      xp: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      level_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       is_verified: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

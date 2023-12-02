@@ -1,12 +1,34 @@
-<!-- views/updateAktivasi.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aktivasi Berhasil</title>
+
+    <!-- Tautkan SweetAlert dari CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   </head>
   <body>
-    <h1>Aktivasi Berhasil!</h1>
+    <!-- Tambahkan skrip SweetAlert setelah halaman dimuat -->
+    <script>
+      // Fungsi untuk menampilkan SweetAlert dan mengarahkan ke halaman beranda
+      function tampilkanSweetAlert() {
+        Swal.fire({
+          title: "Aktivasi Berhasil!",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Redirect ke halaman beranda
+            window.location.href = "/"; // Gantilah '/home' dengan URL beranda yang sesuai
+          }
+        });
+      }
+
+      // Panggil fungsi setelah halaman dimuat
+      window.onload = function () {
+        tampilkanSweetAlert();
+      };
+    </script>
   </body>
 </html>
