@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "itinergoapp-405907",
+  "private_key_id": "24eebc9b736506d7930b9d562bed3d52ea0f9e6b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCcZoNFfkyax/L1\nplwI0AQrMCTi4Rv/6XYG+bmgFpSdHD4FCmimGTKs7snyUsvwAPitC/RzKXA2lKWB\nDKYd01dEzTzQ29yGS8Kl64Zv53hyEhI2FHgmqlmlc/p32x3f5WMpek+uhiqqxwjc\nPrfsKgmgOHuROkA6eOvOlHNcLWVa6Cp8lGurevSLZfTcU5SQNORX3SNFeEH+EYAe\nQrxxp/omIgR1+kSJ2IP69JOA5KZ4KeKckPaeQzDKV/qp6c+1wbHQPtn7wvCMsuTU\npQj/OsZWKykmulbPazfNad/rpI5yn6nS7b5o0zueKRN6rcm+kppcSqn3NDfHuWjk\nvC2dACYXAgMBAAECgf9w10AxeSkAChfXDtLRvPV5FSLASTUGoK2sPFnJJOEDOLYr\narAR9yTcDOI2hRnS6s8lXZtIs+kHrETbRaal/JrRApWBBbxU0c3dR5VaHw06o8rS\nU/bEebdOSyS7c2+r28WTlidg0v+9WibHIK0//qxbZEJwmRrgz70v5INONGWO8TXL\n4AZYxblk/w5kyEYsnxu4V30POGLly7q2hf80LZmDwwpojNIS/dgM42qO+DRYyIxY\n/RRdqNJo0oWx/c2OPnOwr6xsPT2Wvp/dkImUybQRpynsRyLbYBZGkMBSKwmgdPSz\njouYC4TUqjEdIMkvvqFPy2xKEOee6J7Tr+Jwfg0CgYEAzuFP0A1QOhKNjg4OJ5wE\ns6232dmP/Gc52W12gkHS82zVdxtr6iqVxjt9T4nWUm8qXJjTQGIuWDey8YvUvjtG\noOgWrOybZPtzMCz2sM8lQV7f4ExYAtQ98uYMdYgqt/JbfGhjQiDLPOA5T6PtfvEP\ng6ngBExwNHj8m8wmX3D2NXMCgYEAwYjrnG0amNXuPyDPQ9tNdOR2X2fY+MLKGL30\ngaaKFxaxp2SjLZbbBYz6QQ4qY4AhFfdGUpjV8gA+nOD/MzS3T8SNRfA7MVDg+UMr\nIChr1SE/371/84aPaaKU4JRnPZiuieURRHS9Z9Do7tF67minykJiNJpcN2BVOKGe\nyqAtA80CgYEArnUuewJfHzm6CYsswJY/GM5r9dgUJgNes04t29ZqcEDdGp4TONtE\nhnBwUfyoscdw77konGivMFF4I12JwAn4m4RcauL0gAnTr1KbjaqBfkjlfh6jMW+N\n9iGtbAeyDoDgSV82JPPGr8VeTxysEJp0PNGqSbW0AWvtiex0h5OY7KUCgYEAv7Ky\nxi/fv3Fv2sHR60HHODiv85J2fPjcm6NUFDP05ifJcqghZZ/edGIO4+93FzWsEAjt\ndBUFHf8WBehrf7oAtRdYY+UvjIqzPNNGXUUMgoC7txAKNBqd5SFwW/9DP+UDRX1L\nHEaR8cohX6TJImsxgAs/ISGgpA1cfIrCMax0yiUCgYAeZxK/g2tnY/rQh47KmyB7\ncwo2i+wPYWQ7Kd9+30fwaENXpp1L90p5wRKF8JHwYgEjVuy8UI09p5stZQjNWonR\nEFvztOMTCqUgeig6i1605z+/NUOrLPN4gid7XKDn/m0BRNEerwVpFRminOeYrI83\nBC0oaDfVWWWJSc5mcHFpmw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "storage-services@itinergoapp-405907.iam.gserviceaccount.com",
+  "client_id": "114988194277289749111",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage-services%40itinergoapp-405907.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
