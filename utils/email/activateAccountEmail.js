@@ -13,7 +13,7 @@ const activateAccount = (link) => {
   <p>
   If you don't feel like registering an account at Itinergo, please ignore this email.
     <br>
-    Link alternatif: <a href="${link}">${link}</a>
+    Alternative Link: <a href="${link}">${link}</a>
   </p>
   
 

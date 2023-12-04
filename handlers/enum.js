@@ -8,4 +8,11 @@ const VERIFIED = {
   FALSE: false,
 };
 
-module.exports = { ROLE, VERIFIED };
+const LEVEL_TRAVELLER = {
+  NEWBIE: 1,
+  SEASONAL: 2,
+  TRAVELLER: 3,
+  EXPLORER: 4,
+};
+
+module.exports = { ROLE, VERIFIED, LEVEL_TRAVELLER };
