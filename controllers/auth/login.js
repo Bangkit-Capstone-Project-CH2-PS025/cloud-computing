@@ -39,6 +39,8 @@ module.exports = async (req, res, next) => {
       email: user.email,
       username: user.username,
       role: user.role,
+      xp: user.xp,
+      level_id: user.level_id,
     };
 
     const token = jwt.sign(payload, JWT_SECRET);
@@ -51,6 +53,8 @@ module.exports = async (req, res, next) => {
         email: user.email,
         username: user.username,
         role: user.role,
+        xp: user.xp,
+        level_id: user.level_id,
       },
       token,
     });

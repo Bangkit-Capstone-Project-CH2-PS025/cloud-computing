@@ -9,6 +9,13 @@ module.exports = async (req, res, next) => {
 
     const user = await User.findOne({ where: { email } });
 
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: "data not found",
+      });
+    }
+
     if (user) {
       const token = user.email_token;
       const templateResetPassword = {

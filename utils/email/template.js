@@ -58,7 +58,7 @@ const header = `
   </h1>
 
   <div class="auth-content" style="background-color: white;">
-    <p style="font-size: 20px;">Hello! Welcome To Our App</p>
+    <p style="font-size: 20px;">Hello! Welcome to Our App!</p>
 
     <hr>`;
 
