@@ -3,9 +3,30 @@ const { User } = require("../../models");
 const { ROLE, VERIFIED } = require("../../handlers/enum.js");
 const { sendEmail } = require("../../utils/email/email.js");
 const { PORT, IP_ADDRESS } = process.env;
-const activateAccount = require("../../utils/email/activateAccountEmail.js");
+// const activateAccount = require("../../utils/email/activateAccountEmail.js");
 const bcrypt = require("bcrypt");
 const crypto = require("node:crypto");
+const ejs = require("ejs");
+const fs = require("fs");
+const path = require("path");
+
+const activateAccount = async ({ link, name }) => {
+  const templatePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "views",
+    "activateAccountEmail.ejs"
+  );
+  const template = fs.readFileSync(templatePath, "utf-8");
+  const renderedTemplate = ejs.render(template, {
+    link,
+    name,
+    year: new Date().getFullYear(),
+  });
+
+  return renderedTemplate;
+};
 
 module.exports = async (req, res, next) => {
   try {
@@ -54,9 +75,10 @@ module.exports = async (req, res, next) => {
     const templateEmail = {
       to: email.toLowerCase(),
       subject: "Activate Your Account!",
-      html: activateAccount(
-        `http://${IP_ADDRESS}:${PORT}/auth/verify-account?token=${token}`
-      ),
+      html: await activateAccount({
+        link: `http://${IP_ADDRESS}:${PORT}/auth/verify-account?token=${token}`,
+        name: created.name,
+      }),
     };
 
     await sendEmail(templateEmail);
