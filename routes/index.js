@@ -6,8 +6,8 @@ const levelTraveler = require("./levelTraveler");
 const visitedPlace = require("./visitedPlace");
 const recomendation = require("./reccomendation");
 const travelTips = require("./travelTips");
+const account = require("./account");
 const { multerUpload } = require("../middlewares/cloudStorage");
-
 
 router.use("/auth", auth);
 router.use("/level-traveler", levelTraveler);
@@ -20,5 +20,6 @@ router.use(
   multerUpload.single("image"),
   travelTips
 );
+router.use("/account", mid.mustLogin, multerUpload.single("images"), account);
 
 module.exports = router;
