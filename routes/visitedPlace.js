@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cVisitPlace = require("../controllers/visited_place");
+const cVisitPlace = require("../controllers/visited_places");
 
 router.post("/create", cVisitPlace.create);
 router.get("/get-all", cVisitPlace.getAll);

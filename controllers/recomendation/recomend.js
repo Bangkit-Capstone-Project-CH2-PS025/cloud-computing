@@ -1,3 +1,4 @@
+const { Itinerary_Plans, Detail_Plans } = require("../../models");
 const apiAdapter = require("../../handlers/apiAdapter");
 const { ML_URL } = process.env;
 
@@ -13,6 +14,29 @@ module.exports = async (req, res, next) => {
         message: "data not found",
       });
     }
+
+    const createItinerary = await Itinerary_Plans.create({
+      user_id: req.user.id,
+      city: req.body.city,
+      budget: req.body.budget,
+      duration: req.body.duration,
+      preference_1: req.body.user_preferences_1,
+      preference_2: req.body.user_preferences_2,
+    });
+
+    const maxDestinations = 30;
+    const dataLength = Math.min(media.data.length, maxDestinations);
+
+    const destinations = {};
+
+    for (let i = 0; i < dataLength; i++) {
+      const destinationColumnName = `dest${i + 1}`;
+      destinations[destinationColumnName] = media.data[i].place_name;
+    }
+
+    destinations.itinerary_plan_id = createItinerary.id;
+
+    await Detail_Plans.create(destinations);
 
     return res.status(200).json({
       status: true,
