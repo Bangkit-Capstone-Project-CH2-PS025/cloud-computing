@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
           `http://${IP_ADDRESS}:${PORT}/reset-password/${token}`
         ),
       };
-      await sendEmail(templateResetPassword);
+      sendEmail(templateResetPassword);
     }
 
     return res.status(200).json({
