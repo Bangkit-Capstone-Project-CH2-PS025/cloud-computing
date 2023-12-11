@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Perintah untuk menjalankan aplikasi
-CMD ["./node_modules/.bin/node", "server.js"]
+CMD ["./node_modules/.bin/nodemon", "server.js"]
