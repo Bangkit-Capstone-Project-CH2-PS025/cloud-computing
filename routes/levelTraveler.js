@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cleveltravel = require("../controllers/level_traveler");
+const cleveltravel = require("../controllers/level_travelers");
 
 router.post("/create", cleveltravel.create);
 router.get("/get-all", cleveltravel.getAll);
