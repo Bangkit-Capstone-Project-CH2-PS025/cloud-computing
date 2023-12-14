@@ -81,7 +81,7 @@ module.exports = async (req, res, next) => {
       }),
     };
 
-    sendEmail(templateEmail);
+    await sendEmail(templateEmail);
 
     return res.status(201).json({
       status: true,

@@ -1,4 +1,4 @@
-const { Visited_Place, User } = require("../../models");
+const { Visited_Places, User } = require("../../models");
 const { LEVEL_TRAVELLER } = require("../../handlers/enum");
 
 module.exports = async (req, res, next) => {
@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const created = await Visited_Place.create({
+    const created = await Visited_Places.create({
       user_id: findUser.id,
       country,
       city,
@@ -37,6 +37,10 @@ module.exports = async (req, res, next) => {
       addLevelTravel = LEVEL_TRAVELLER.TRAVELLER;
     }
     if (addXp > 2000 && addXp <= 3000) {
+      addLevelTravel = LEVEL_TRAVELLER.EXPLORER;
+    }
+
+    if (addXp > 3000) {
       addLevelTravel = LEVEL_TRAVELLER.EXPLORER;
     }
 

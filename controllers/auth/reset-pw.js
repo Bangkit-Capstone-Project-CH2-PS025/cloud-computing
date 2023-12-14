@@ -1,7 +1,27 @@
 const { User } = require("../../models");
 const { sendEmail } = require("../../utils/email/email.js");
 const { IP_ADDRESS, PORT } = process.env;
-const resetPassword = require("../../utils/email/resetAccountEmail.js");
+const ejs = require("ejs");
+const fs = require("fs");
+const path = require("path");
+
+const resetPassword = async ({ link, name }) => {
+  const templatePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "views",
+    "resetAccountEmail.ejs"
+  );
+  const template = fs.readFileSync(templatePath, "utf-8");
+  const renderedTemplate = ejs.render(template, {
+    link,
+    name,
+    year: new Date().getFullYear(),
+  });
+
+  return renderedTemplate;
+};
 
 module.exports = async (req, res, next) => {
   try {
@@ -17,15 +37,16 @@ module.exports = async (req, res, next) => {
     }
 
     if (user) {
-      const token = user.email_token;
-      const templateResetPassword = {
-        to: req.body.email.toLowerCase(),
+      const templateEmail = {
+        to: email.toLowerCase(),
         subject: "Reset Your Password!",
-        html: resetPassword(
-          `http://${IP_ADDRESS}:${PORT}/reset-password/${token}`
-        ),
+        html: await resetPassword({
+          link: `http://${IP_ADDRESS}:${PORT}/auth/verify-account?token=${token}`,
+          name: created.name,
+        }),
       };
-      sendEmail(templateResetPassword);
+
+      await sendEmail(templateEmail);
     }
 
     return res.status(200).json({

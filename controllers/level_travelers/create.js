@@ -1,10 +1,10 @@
-const { Level_Traveler } = require("../../models");
+const { Level_Travelers } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
     const { name, badge = NULL } = req.body;
 
-    const findName = await Level_Traveler.findOne({ where: { name } });
+    const findName = await Level_Travelers.findOne({ where: { name } });
 
     if (findName) {
       return res.status(409).json({
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const created = await Level_Traveler.create({
+    const created = await Level_Travelers.create({
       name,
       badge,
     });
