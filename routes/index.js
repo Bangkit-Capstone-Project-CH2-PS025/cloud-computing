@@ -14,8 +14,6 @@ router.use("/visited-place", mid.mustLogin, visitedPlace);
 router.use("/itinerary", mid.mustLogin, recomendation);
 router.use(
   "/travel-tips",
-  mid.mustLogin,
-  mid.mustAdmin,
   multerUpload.single("image"),
   travelTips
 );
