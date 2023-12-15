@@ -14,6 +14,6 @@ router.use("/level-traveler", levelTraveler);
 router.use("/visited-place", mid.mustLogin, visitedPlace);
 router.use("/itinerary", mid.mustLogin, recomendation);
 router.use("/travel-tips", multerUpload.single("image"), travelTips);
-router.use("/travel-budgets", travelBudgets);
+router.use("/travel-budgets", mid.mustLogin, travelBudgets);
 
 module.exports = router;

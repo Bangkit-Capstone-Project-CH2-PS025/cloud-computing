@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
       where: { id },
     });
 
-    if (findData) {
+    if (!findData) {
       return res.status(404).json({
         status: false,
         message: "budget name not found",
@@ -38,7 +38,7 @@ module.exports = async (req, res, next) => {
         food,
         others,
       },
-      { where: user_id }
+      { where: { id } }
     );
 
     return res.status(200).json({

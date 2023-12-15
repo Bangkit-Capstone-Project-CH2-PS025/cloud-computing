@@ -26,6 +26,7 @@ module.exports = async (req, res, next) => {
     }
 
     const created = await Travel_Budgets.create({
+      user_id,
       budget_name,
       target,
       flight,
