@@ -1,9 +1,9 @@
-const { Visited_Place } = require("../../models");
+const { Visited_Places } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const findData = await Visited_Place.findOne({
+    const findData = await Visited_Places.findOne({
       where: { id },
     });
 

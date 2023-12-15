@@ -1,8 +1,8 @@
-const { Visited_Place } = require("../../models");
+const { Visited_Places } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const findData = await Visited_Place.findAll({
+    const findData = await Visited_Places.findAll({
       where: { user_id: req.user.id },
     });
 

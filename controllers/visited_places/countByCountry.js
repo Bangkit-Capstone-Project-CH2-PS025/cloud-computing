@@ -1,8 +1,8 @@
-const { Visited_Place, sequelize } = require("../../models");
+const { Visited_Places, sequelize } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const data = await Visited_Place.findAll({
+    const data = await Visited_Places.findAll({
       attributes: [
         [sequelize.fn("DISTINCT", sequelize.col("country")), "country"],
         [sequelize.fn("COUNT", sequelize.col("country")), "count"],
