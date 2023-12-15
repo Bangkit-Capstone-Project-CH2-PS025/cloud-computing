@@ -2,8 +2,9 @@ const { Travel_Budgets } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const findTravelBudgets = await Travel_Budgets.findAll({
-      where: { user_id: req.user.id },
+    const { id } = req.params;
+    const findTravelBudgets = await Travel_Budgets.findOne({
+      where: { id },
     });
 
     if (!findTravelBudgets) {
@@ -24,7 +25,19 @@ module.exports = async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: "successfuly get all data travel budget",
-      data: { findTravelBudgets, total },
+      data: {
+        id: findTravelBudgets.id,
+        user_id: findTravelBudgets.user_id,
+        budget_name: findTravelBudgets.budget_name,
+        target: findTravelBudgets.target,
+        flight: findTravelBudgets.flight,
+        attractions: findTravelBudgets.attractions,
+        stay: findTravelBudgets.stay,
+        shopping: findTravelBudgets.shopping,
+        food: findTravelBudgets.food,
+        others: findTravelBudgets.others,
+        total: total,
+      },
     });
   } catch (error) {
     next(error);
