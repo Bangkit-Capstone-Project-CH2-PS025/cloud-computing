@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
         as: "user",
       });
+
+      Itinerary_Plans.hasMany(models.Detail_Plans, {
+        foreignKey: "itinerary_plan_id",
+        as: "detail_plans",
+      });
     }
   }
   Itinerary_Plans.init(
@@ -38,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       preference_2: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      is_finished: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },

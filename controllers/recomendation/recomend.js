@@ -22,6 +22,7 @@ module.exports = async (req, res, next) => {
       duration: req.body.duration,
       preference_1: req.body.user_preferences_1,
       preference_2: req.body.user_preferences_2,
+      is_finished: false,
     });
 
     const maxDestinations = 30;
