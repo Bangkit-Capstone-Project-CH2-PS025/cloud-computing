@@ -28,7 +28,22 @@ module.exports = {
       contents: {
         type: Sequelize.TEXT,
       },
-      image: {
+      image_cover: {
+        type: Sequelize.TEXT,
+      },
+      image_1: {
+        type: Sequelize.TEXT,
+      },
+      image_2: {
+        type: Sequelize.TEXT,
+      },
+      image_3: {
+        type: Sequelize.TEXT,
+      },
+      image_4: {
+        type: Sequelize.TEXT,
+      },
+      image_5: {
         type: Sequelize.TEXT,
       },
       total_views: {

@@ -33,7 +33,27 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      image: {
+      image_cover: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image_1: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image_2: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image_3: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image_4: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image_5: {
         type: DataTypes.TEXT,
         allowNull: false,
       },

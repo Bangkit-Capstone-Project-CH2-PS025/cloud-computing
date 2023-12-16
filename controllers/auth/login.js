@@ -36,6 +36,7 @@ module.exports = async (req, res, next) => {
 
     const payload = {
       id: user.id,
+      name: user.name,
       email: user.email,
       username: user.username,
       role: user.role,
@@ -50,6 +51,7 @@ module.exports = async (req, res, next) => {
       message: "login successful",
       data: {
         id: user.id,
+        name: user.name,
         email: user.email,
         username: user.username,
         role: user.role,
