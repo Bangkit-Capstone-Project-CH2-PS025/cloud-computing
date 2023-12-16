@@ -3,7 +3,6 @@ const { User } = require("../../models");
 const { ROLE, VERIFIED } = require("../../handlers/enum.js");
 const { sendEmail } = require("../../utils/email/email.js");
 const { PORT, IP_ADDRESS } = process.env;
-// const activateAccount = require("../../utils/email/activateAccountEmail.js");
 const bcrypt = require("bcrypt");
 const crypto = require("node:crypto");
 const ejs = require("ejs");
@@ -36,10 +35,17 @@ module.exports = async (req, res, next) => {
 
     const findUsername = await User.findOne({ where: { username } });
 
-    if (findEmail || findUsername) {
+    if (findEmail) {
       return res.status(409).json({
         status: false,
-        message: "email or username already exist",
+        message: "email already exist",
+      });
+    }
+
+    if (findUsername) {
+      return res.status(409).json({
+        status: false,
+        message: "username already exist",
       });
     }
 

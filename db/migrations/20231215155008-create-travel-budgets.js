@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Visited_Places", {
+    await queryInterface.createTable("Travel_Budgets", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,19 +13,35 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      country: {
+      budget_name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      city: {
-        type: Sequelize.STRING,
+      target: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      month: {
-        type: Sequelize.STRING,
+      flight: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      year: {
+      attractions: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      stay: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      shopping: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      food: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      others: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -40,6 +56,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Visited_Places");
+    await queryInterface.dropTable("Travel_Budgets");
   },
 };

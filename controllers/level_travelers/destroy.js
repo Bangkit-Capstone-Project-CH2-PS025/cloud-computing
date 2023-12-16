@@ -1,9 +1,9 @@
-const { Level_Traveler } = require("../../models");
+const { Level_Travelers } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const findName = await Level_Traveler.findOne({ where: { id } });
+    const findName = await Level_Travelers.findOne({ where: { id } });
 
     if (!findName) {
       return res.status(404).json({
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const deleted = await Level_Traveler.destroy({ where: { id } });
+    const deleted = await Level_Travelers.destroy({ where: { id } });
 
     return res.status(200).json({
       status: true,

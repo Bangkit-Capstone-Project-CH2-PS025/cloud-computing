@@ -1,8 +1,8 @@
-const { Level_Traveler } = require("../../models");
+const { Level_Travelers } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const findName = await Level_Traveler.findAll();
+    const findName = await Level_Travelers.findAll();
 
     if (!findName) {
       return res.status(404).json({

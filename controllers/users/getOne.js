@@ -1,9 +1,10 @@
-const { Visited_Place } = require("../../models");
+const { User } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const findData = await Visited_Place.findAll({
-      where: { user_id: req.user.id },
+    const { id } = req.params;
+    const findData = await User.findOne({
+      where: { id },
     });
 
     if (!findData) {
@@ -16,7 +17,7 @@ module.exports = async (req, res, next) => {
 
     return res.status(200).json({
       status: true,
-      message: "successfuly get all data visited place",
+      message: "successfuly get data visited place",
       data: findData,
     });
   } catch (error) {

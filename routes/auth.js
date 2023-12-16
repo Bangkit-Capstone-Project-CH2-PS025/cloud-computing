@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const cauth = require("../controllers/auth");
+const timeout = require("connect-timeout");
 
-router.post("/register", cauth.register);
+router.post("/register", timeout("20s"), cauth.register);
 router.post("/login", cauth.login);
 router.post("/forgot-password", cauth.resetpw);
 router.get("/verify-account", cauth.activation);

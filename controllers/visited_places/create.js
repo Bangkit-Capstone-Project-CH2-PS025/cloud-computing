@@ -1,9 +1,14 @@
-const { Visited_Place, User } = require("../../models");
+const { Visited_Places, User } = require("../../models");
 const { LEVEL_TRAVELLER } = require("../../handlers/enum");
+const { uploadToStorage } = require("../../middlewares/cloudStorage");
 
 module.exports = async (req, res, next) => {
   try {
     const { country, city, month, year } = req.body;
+    const image = req.file;
+
+    const folder = req.user.role;
+    const name = req.user.username;
 
     const findUser = await User.findOne({ where: { id: req.user.id } });
 
@@ -15,12 +20,15 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const created = await Visited_Place.create({
+    const imageUrl = await uploadToStorage(image, folder, name);
+
+    const created = await Visited_Places.create({
       user_id: findUser.id,
       country,
       city,
       month,
       year,
+      image: imageUrl,
     });
 
     const addXp = Number(findUser.xp) + 100;
@@ -37,6 +45,10 @@ module.exports = async (req, res, next) => {
       addLevelTravel = LEVEL_TRAVELLER.TRAVELLER;
     }
     if (addXp > 2000 && addXp <= 3000) {
+      addLevelTravel = LEVEL_TRAVELLER.EXPLORER;
+    }
+
+    if (addXp > 3000) {
       addLevelTravel = LEVEL_TRAVELLER.EXPLORER;
     }
 

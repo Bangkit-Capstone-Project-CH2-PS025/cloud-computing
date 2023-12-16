@@ -1,46 +1,59 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Visited_Place extends Model {
+  class Travel_Budgets extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Visited_Place.belongsTo(models.User, {
-        foreignKey: "user_id",
-        as: "vsited_place",
-      });
+      // define association here
     }
   }
-  Visited_Place.init(
+  Travel_Budgets.init(
     {
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      country: {
+      budget_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      city: {
-        type: DataTypes.STRING,
+      target: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      month: {
-        type: DataTypes.STRING,
+      flight: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      year: {
+      attractions: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      stay: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      shopping: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      food: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      others: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "Visited_Place",
+      modelName: "Travel_Budgets",
     }
   );
-  return Visited_Place;
+  return Travel_Budgets;
 };

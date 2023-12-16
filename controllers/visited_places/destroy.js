@@ -1,10 +1,9 @@
-const { Visited_Place } = require("../../models");
+const { Visited_Places } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { country, city, month, year } = req.body;
-    const findData = await Visited_Place.findOne({ where: { id } });
+    const findData = await Visited_Places.findOne({ where: { id } });
 
     if (!findData) {
       return res.status(404).json({
@@ -14,15 +13,7 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const deleted = await Visited_Place.update(
-      {
-        country,
-        city,
-        month,
-        year,
-      },
-      { where: { id } }
-    );
+    const deleted = await Visited_Places.destroy({ where: { id } });
 
     return res.status(200).json({
       status: true,

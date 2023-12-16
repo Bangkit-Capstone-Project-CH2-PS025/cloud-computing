@@ -23,6 +23,9 @@ module.exports = {
     host: DB_HOST,
     dialect: DB_DIALECT,
     port: DB_PORT,
+    dialectOptions: {
+      connectTimeout: 60000,
+    },
   },
   test: {
     username: DBTEST_USERNAME,
@@ -31,6 +34,15 @@ module.exports = {
     host: DBTEST_HOST,
     dialect: DBTEST_DIALECT,
     port: DBTEST_PORT,
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    host: DB_HOST,
+    dialect: DB_DIALECT,
+    port: DB_PORT,
+    dialectOptions: {
+      connectTimeout: 60000,
+    },
   },
   production: {
     username: DB_USERNAME,
@@ -39,5 +51,14 @@ module.exports = {
     host: DB_HOST,
     dialect: DB_DIALECT,
     port: DB_PORT,
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    host: DB_HOST,
+    dialect: DB_DIALECT,
+    port: DB_PORT,
+    dialectOptions: {
+      connectTimeout: 60000,
+    },
   },
 };
