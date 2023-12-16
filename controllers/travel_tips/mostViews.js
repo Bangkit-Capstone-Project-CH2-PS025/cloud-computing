@@ -2,9 +2,9 @@ const { Travel_Tips } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const { id } = req.params;
-
-    const findTravelTips = await Travel_Tips.findOne({ where: { id } });
+    const findTravelTips = await Travel_Tips.findAll({
+      order: [["total_views", "DESC"]],
+    });
 
     if (!findTravelTips) {
       return res.status(404).json({
@@ -13,11 +13,9 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    await Travel_Tips.increment("total_views", { where: { id } });
-
     return res.status(200).json({
       status: true,
-      message: "successfuly get data Travel Tips",
+      message: "successfuly get all data Travel Tips",
       data: findTravelTips,
     });
   } catch (error) {
