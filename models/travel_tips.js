@@ -17,11 +17,30 @@ module.exports = (sequelize, DataTypes) => {
   }
   Travel_Tips.init(
     {
-      user_id: DataTypes.INTEGER,
-      author: DataTypes.STRING,
-      title: DataTypes.STRING,
-      contents: DataTypes.TEXT,
-      image: DataTypes.TEXT,
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      author: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      contents: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      image: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      total_views: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       sequelize,

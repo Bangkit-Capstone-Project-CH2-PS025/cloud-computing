@@ -31,6 +31,9 @@ module.exports = {
       image: {
         type: Sequelize.TEXT,
       },
+      total_views: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

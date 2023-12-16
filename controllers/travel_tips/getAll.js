@@ -2,7 +2,9 @@ const { Travel_Tips } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
-    const findTravelTips = await Travel_Tips.findAll();
+    const findTravelTips = await Travel_Tips.findAll({
+      order: [["id", "DESC"]],
+    });
 
     if (!findTravelTips) {
       return res.status(404).json({
