@@ -9,6 +9,7 @@ const travelTips = require("./travelTips");
 const account = require("./account");
 const travelBudgets = require("./travelBudgets");
 const itineraryPlans = require("./itinerary_plans");
+const findTrip = require("./findTrip");
 const { multerUpload } = require("../middlewares/cloudStorage");
 
 router.use("/auth", auth);
@@ -27,5 +28,6 @@ router.use("/itinerary", mid.mustLogin, recomendation);
 router.use("/detail-itinerary", mid.mustLogin, itineraryPlans);
 router.use("/travel-tips", multerUpload.single("image"), travelTips);
 router.use("/travel-budgets", mid.mustLogin, travelBudgets);
+router.use("/find-trip", mid.mustLogin, findTrip);
 
 module.exports = router;
