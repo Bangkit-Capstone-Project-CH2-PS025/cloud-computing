@@ -5,7 +5,7 @@ const api = apiAdapter(ML_URL);
 
 module.exports = async (req, res, next) => {
   try {
-    const media = await api.get("/predict/carbon");
+    const media = await api.post("/generate/preferences", req.body);
 
     if (!media) {
       return res.status(404).json({
@@ -14,12 +14,10 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const result = JSON.parse(media.data);
-
     return res.status(200).json({
       status: true,
       message: "success",
-      data: result,
+      data: media.data,
     });
   } catch (error) {
     next(error);

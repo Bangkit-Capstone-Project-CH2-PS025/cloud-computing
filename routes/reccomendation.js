@@ -5,6 +5,8 @@ const cRecomend = require("../controllers/recomendation");
 router.post("/predict", cRecomend.recomend);
 router.get("/get-recomend", cRecomend.getRecomend);
 router.get("/calc-carbon", cRecomend.calcCarbon);
+router.post("/preferences", cRecomend.preferences);
+router.get("/discover", cRecomend.discover);
 // router.get("/get-one/:id", cVisitPlace.getOne);
 // router.get("/count-by-city", cVisitPlace.countByCity);
 // router.get("/count-by-country", cVisitPlace.countByCountry);

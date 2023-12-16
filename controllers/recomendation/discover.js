@@ -5,7 +5,7 @@ const api = apiAdapter(ML_URL);
 
 module.exports = async (req, res, next) => {
   try {
-    const media = await api.get("/predict/carbon");
+    const media = await api.get("/generate/place");
 
     if (!media) {
       return res.status(404).json({
@@ -13,13 +13,19 @@ module.exports = async (req, res, next) => {
         message: "data not found",
       });
     }
+    // https://storage.googleapis.com/itinergo-storage/images/discover_place/image_1.jpg
 
-    const result = JSON.parse(media.data);
+    const url = "https://storage.googleapis.com/itinergo-storage/";
 
     return res.status(200).json({
       status: true,
       message: "success",
-      data: result,
+      data: {
+        id: media.data[0].id,
+        place_name: media.data[0].place_name,
+        city: media.data[0].city,
+        dir: `${url}${media.data[0].dir}.jpg`,
+      },
     });
   } catch (error) {
     next(error);
