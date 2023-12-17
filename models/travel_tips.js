@@ -39,23 +39,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       image_1: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       image_2: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       image_3: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       image_4: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       image_5: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       total_views: {
         type: DataTypes.INTEGER,

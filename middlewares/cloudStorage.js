@@ -28,7 +28,7 @@ const bucket = new Storage(storageConfig).bucket(bucketName);
 
 const uploadToStorage = (file, folder, name) => {
   return new Promise((resolve, reject) => {
-    const fileName = `${folder}/${name}/${Date.now()}_${path.basename(
+    const fileName = `${folder}/${name}/${Date.now()}_${path.extname(
       file.originalname
     )}`;
     const fileUpload = bucket.file(fileName);
