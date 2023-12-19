@@ -1,4 +1,4 @@
-const { User, Level_Traveler } = require("../../models");
+const { User, Level_Travelers } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
         exclude: ["password", "createdAt", "updatedAt"],
       },
       include: {
-        model: Level_Traveler,
+        model: Level_Travelers,
         as: "level_traveler",
         attributes: {
           exclude: ["createdAt", "updatedAt"],
