@@ -33,18 +33,23 @@ module.exports = {
       },
       image_1: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       image_2: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       image_3: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       image_4: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       image_5: {
         type: Sequelize.TEXT,
+        allowNull: true,
       },
       total_views: {
         type: Sequelize.INTEGER,
