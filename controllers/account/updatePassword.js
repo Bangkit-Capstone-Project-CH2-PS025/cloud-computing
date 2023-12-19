@@ -14,16 +14,25 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    const { password } = req.body;
+    const { old_password, new_password } = req.body;
 
-    if (password.length < 8) {
+    const checkPassword = await bcrypt.compare(old_password, findAccount.password);
+
+    if (!checkPassword) {
+      return res.status(401).json({
+        status: false,
+        message: "password is wrong",
+      });
+    }
+
+    if (new_password.length < 8) {
       return res.status(400).json({
         status: false,
         message: "password must be at least 8 characters",
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(new_password, 10);
 
     await User.update(
       {

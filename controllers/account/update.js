@@ -23,6 +23,15 @@ module.exports = async (req, res, next) => {
     const folder = req.user.role;
     const username = req.user.username;
 
+    const findEmail = await User.findOne({ where: { email } });
+
+    if (findEmail) {
+      return res.status(409).json({
+        status: false,
+        message: "email already exist",
+      });
+    }
+
     if (images) {
       const imageUrl = await uploadToStorage(images, folder, username);
 
