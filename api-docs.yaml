@@ -1556,7 +1556,198 @@ paths:
         "500":
           description: Internal Server Error
 
-
+# Profile
+  /account/getAccount:
+    get:
+      summary: Get Account
+      description: That's the API to get account
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get account successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      email_token:
+                        type: string
+                      username:
+                        type: string
+                      address:
+                        type: string
+                      images:
+                        type: string
+                      phone:
+                        type: bigint
+                      role:
+                        type: string
+                      is_verified:
+                        type: boolean
+                      level_traveler:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          badge:
+                            type: string
+              examples:
+                Get account successful:
+                  value:
+                    status: true
+                    message: successfuly get data Account
+                    data:
+                      id: 1
+                      name: John Doe
+                      email: johndoe@gmail.com
+                      email_token: bbd8b9e682322c6c04878f6b0ec049123f1db119e04cdefbe0bcba2d56
+                      username: johndoe
+                      address: Jakarta
+                      images: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+                      phone: 6281234567890
+                      role: USER
+                      is_verified: true
+                      level_traveler:
+                        id: 1
+                        name: Beginner
+                        badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Account Not Found:
+                  value:
+                    status: false
+                    message: account not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /account/updateAccount:
+    put:
+      summary: Update Account
+      description: That's the API to update account
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                images:
+                  type: string
+                  format: binary
+            examples:
+              example-body:
+                value:
+                  name: John Doe
+                  email: johndoe@gmail.com
+      responses:
+        "200":
+          description: Update account successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update account successful:
+                  value:
+                    status: true
+                    message: Account has been updated
+        "500":
+          description: Internal Server Error
+  /account/updatePassword:
+    put:
+      summary: Update Password
+      description: That's the API to update password
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+            examples:
+              example-body:
+                value:
+                  old_password: 123456
+                  new_password: 1234567
+      responses:
+        "200":
+          description: Update password successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update password successful:
+                  value:
+                    status: true
+                    message: Password has been updated
+        "401":
+          description: Password not match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Password not match:
+                  value:
+                    status: false
+                    message: password not match
+        "500":
+          description: Internal Server Error
 
 components:
   schemas: {}
