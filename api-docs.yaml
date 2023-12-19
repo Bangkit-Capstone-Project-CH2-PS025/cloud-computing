@@ -1,18 +1,20 @@
 openapi: 3.1.0
 info:
   title: Itinergo API
-  description: Itinergo API Documentation
+  description: Welcome to Itinergo API Documentation
   version: 0.0.1
 
 servers:
   - url: http://localhost:8000
     description: Localhost
-  - url: https://xx.com
+  - url: http://35.184.3.42:3000
     description: Deployment
 
 tags:
   - name: Authentication
     description: Authentication API
+  - name: Find Trip
+    description: Find Trip API
 
 paths:
   /auth/register:
@@ -231,3 +233,1526 @@ paths:
                 Password not match:
                   value:
                     message: password not match
+  /auth/forgot-password:
+    post:
+      summary: Forgot Password
+      description: That's the API to forgot password
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+            examples:
+              example-body:
+                value:
+                  email: johndoe@mail.com
+      responses:
+        "200":
+          description: Forgot password successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Forgot password successful:
+                  value:
+                    status: true
+                    message: request reset password successful
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                User not found:
+                  value:
+                    status: false
+                    message: data not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# FIND TRIP
+  /find-trip/create:
+    post:
+      summary: Create Trip
+      description: That's the API to create trip
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                country:
+                  type: string
+                departure:
+                  type: string
+                  format: date
+                until:
+                  type: string
+                  format: date
+                persons:
+                  type: integer
+                contact:
+                  type: bigint
+                image:
+                  type: string
+                  format: binary
+            examples:
+              example-body:
+                value:
+                  city: Jakarta
+                  country: Indonesia
+                  departure: 2021-09-30
+                  until: 2021-10-01
+                  persons: 6
+                  contact: 6281234567890
+      responses:
+        "201":
+          description: Create trip successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      user_id:
+                        type: integer
+                      city:
+                        type: string
+                      country:
+                        type: string
+                      departure:
+                        type: string
+                        format: date
+                      until:
+                        type: string
+                        format: date
+                      persons:
+                        type: integer
+                      contact:
+                        type: bigint
+                      image:
+                        type: string
+              examples:
+                Create trip successful:
+                  value:
+                    status: true
+                    message: successfully create a new visited place and you got 50 XP!
+                    data:
+                      user_id: 1
+                      city: Jakarta
+                      country: Indonesia
+                      departure: 2021-09-30
+                      until: 2021-10-01
+                      persons: 6
+                      contact: 6281234567890
+                      image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+        "409":
+          description: Trip already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Trip already exist:
+                  value:
+                    status: false
+                    message: find trip already exist
+                    data: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                User not found:
+                  value:
+                    status: false
+                    message: user not found
+                    data: null
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /find-trip/get-all:
+    get:
+      summary: Get All Trip
+      description: That's the API to get all trip
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all trip successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        city:
+                          type: string
+                        country:
+                          type: string
+                        departure:
+                          type: string
+                          format: date-time
+                        until:
+                          type: string
+                          format: date-time
+                        persons:
+                          type: integer
+                        contact:
+                          type: bigint
+                        image:
+                          type: string
+                        is_available:
+                          type: boolean
+              examples:
+                Get all trip successful:
+                  value:
+                    status: true
+                    message: successfuly get all data find trips
+                    data:
+                      - id: 1
+                        user_id: 1
+                        city: Jakarta
+                        country: Indonesia
+                        departure: "2021-09-30T00:00:00.000Z"
+                        until: "2021-10-01T00:00:00.000Z"
+                        persons: 6
+                        contact: 6281234567890
+                        is_available: true
+                        image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+                      - id: 2
+                        user_id: 2
+                        city: Bandung
+                        country: Indonesia
+                        departure: "2021-09-30T00:00:00.000Z"
+                        until: "2021-10-01T00:00:00.000Z"
+                        persons: 6
+                        contact: 6281234567890
+                        is_available: true
+                        image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Trip Not Found:
+                  value:
+                    status: false
+                    message: find trip not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /find-trip/get-all-id:
+    get:
+      summary: Get All Trip By One User
+      description: That's the API to get all trip by one user
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all trip by user successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+              examples:
+                Get all trip id successful:
+                  value:
+                    status: true
+                    message: successfuly get all data find trips
+                    data:
+                      - id: 1
+                      - id: 2
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Trip Not Found:
+                  value:
+                    status: false
+                    message: find trip not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /find-trip/get-one/{id}:
+    get:
+      summary: Get One Trip
+      description: That's the API to get one trip
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the trip
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one trip successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      city:
+                        type: string
+                      country:
+                        type: string
+                      departure:
+                        type: string
+                        format: date
+                      until:
+                        type: string
+                        format: date
+                      persons:
+                        type: integer
+                      contact:
+                        type: bigint
+                      image:
+                        type: string
+              examples:
+                Get one trip successful:
+                  value:
+                    status: true
+                    message: successfuly get data find trips
+                    data:
+                      id: 1
+                      user_id: 1
+                      city: Jakarta
+                      country: Indonesia
+                      departure: 2021-09-30
+                      until: 2021-10-01
+                      persons: 6
+                      contact: 6281234567890
+                      image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Trip Not Found:
+                  value:
+                    status: false
+                    message: find trip not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /find-trip/update/{id}:
+    put:
+      summary: Update Trip
+      description: That's the API to update trip
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the trip
+          schema:
+            type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                country:
+                  type: string
+                departure:
+                  type: string
+                  format: date
+                until:
+                  type: string
+                  format: date
+                persons:
+                  type: integer
+                contact:
+                  type: bigint
+                image:
+                  type: string
+                  format: binary
+            examples:
+              example-body:
+                value:
+                  city: Jakarta
+                  country: Indonesia
+                  departure: 2021-09-30
+                  until: 2021-10-01
+                  persons: 6
+                  contact: 6281234567890
+      responses:
+        "200":
+          description: Update trip successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                Update trip successful:
+                  value:
+                    status: true
+                    message: successfully updated a find trip
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Trip Not Found:
+                  value:
+                    status: false
+                    message: find trip not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "409":
+          description: Trip already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Trip already exist:
+                  value:
+                    status: false
+                    message: find trip already exist
+        "500":
+          description: Internal Server Error
+  /find-trip/delete/{id}:
+    delete:
+      summary: Delete Trip
+      description: That's the API to delete trip
+      tags:
+        - Find Trip
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the trip
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delete trip successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Delete trip successful:
+                  value:
+                    status: true
+                    message: successfuly deleted data find trip
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Trip Not Found:
+                  value:
+                    status: false
+                    message: find trip not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Itinerary Plans
+  /detail-itinerary/get-all:
+    get:
+      summary: Get All Itinerary Plans
+      description: That's the API to get all itinerary plans
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all itinerary plans successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        city:
+                          type: string
+                        budget:
+                          type: integer
+                        duration:
+                          type: integer
+                        preference_1:
+                          type: string
+                        preference_2:
+                          type: string
+                        is_finished:
+                          type: boolean
+                        detail_plans:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              itinerary_plan_id:
+                                type: integer
+                              dest_1:
+                                type: string
+                              dest_2:
+                                type: string
+                              dest_3:
+                                type: string
+                              dest_4:
+                                type: string
+                              dest_5:
+                                type: string
+                              dest_6:
+                                type: string
+                              dest_7:
+                                type: string
+                              dest_8:
+                                type: string
+                              dest_9:
+                                type: string
+                              dest_10:
+                                type: string
+                              dest_11:
+                                type: string
+                              dest_12:
+                                type: string
+                              dest_13:
+                                type: string
+                              dest_14:
+                                type: string
+                              dest_15:
+                                type: string
+                              dest_16:
+                                type: string
+                              dest_17:
+                                type: string
+                              dest_18:
+                                type: string
+                              dest_19:
+                                type: string
+                              dest_20:
+                                type: string
+                              dest_21:
+                                type: string
+                              dest_22:
+                                type: string
+                              dest_23:
+                                type: string
+                              dest_24:
+                                type: string
+                              dest_25:
+                                type: string
+                              dest_26:
+                                type: string
+                              dest_27:
+                                type: string
+                              dest_28:
+                                type: string
+                              dest_29:
+                                type: string
+                              dest_30:
+                                type: string
+              examples:
+                Get all itinerary plans successful:
+                  value:
+                    status: true
+                    message: successfuly get all data detail plans
+                    data:
+                      - id: 1
+                        user_id: 1
+                        city: Jakarta
+                        budget: 1000000
+                        duration: 5
+                        preference_1: Culinary
+                        preference_2: Shopping
+                        is_finished: true
+                        detail_plans:
+                          - id: 1
+                            itinerary_plan_id: 1
+                            dest_1: Monas
+                            dest_2: Kota Tua
+                            dest_3: Taman Mini
+                            dest_4: Ragunan
+                            dest_5: Ancol
+                            dest_6: Museum Nasional
+                            dest_7: Museum Gajah
+                            dest_8: Museum Wayang
+                            dest_9: Museum Bank Indonesia
+                            dest_10: Museum Bahari
+                            dest_11: Museum Seni Rupa dan Keramik
+                            dest_12: Museum Tekstil
+                            dest_13: Museum Sejarah Jakarta
+                            dest_14: Museum Perumusan Naskah Proklamasi
+                            dest_15: Museum Joang 45
+                            dest_16: null
+                            dest_17: null
+                            dest_18: null
+                            dest_19: null
+                            dest_20: null
+                            dest_21: null
+                            dest_22: null
+                            dest_23: null
+                            dest_24: null
+                            dest_25: null
+                            dest_26: null
+                            dest_27: null
+                            dest_28: null
+                            dest_29: null
+                            dest_30: null
+                      - id: 2
+                        user_id: 2
+                        city: Bandung
+                        budget: 1000000
+                        duration: 3
+                        preference_1: Culinary
+                        preference_2: Shopping
+                        is_finished: true
+                        detail_plans:
+                          - id: 2
+                            itinerary_plan_id: 2
+                            dest_1: Monas
+                            dest_2: Kota Tua
+                            dest_3: Taman Mini
+                            dest_4: Ragunan
+                            dest_5: Ancol
+                            dest_6: Museum Nasional
+                            dest_7: Museum Gajah
+                            dest_8: Museum Wayang
+                            dest_9: Museum Bank Indonesia
+                            dest_10: null
+                            dest_11: null
+                            dest_12: null
+                            dest_13: null
+                            dest_14: null
+                            dest_15: null
+                            dest_16: null
+                            dest_17: null
+                            dest_18: null
+                            dest_19: null
+                            dest_20: null
+                            dest_21: null
+                            dest_22: null
+                            dest_23: null
+                            dest_24: null
+                            dest_25: null
+                            dest_26: null
+                            dest_27: null
+                            dest_28: null
+                            dest_29: null
+                            dest_30: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: itinerary plans not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /detail-itinerary/get-one/{id}:
+    get:
+      summary: Get One Itinerary Plans
+      description: That's the API to get one itinerary plans
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the itinerary plans
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one itinerary plans successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      city:
+                        type: string
+                      budget:
+                        type: integer
+                      duration:
+                        type: integer
+                      preference_1:
+                        type: string
+                      preference_2:
+                        type: string
+                      is_finished:
+                        type: boolean
+                      detail_plans:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            itinerary_plan_id:
+                              type: integer
+                            dest_1:
+                              type: string
+                            dest_2:
+                              type: string
+                            dest_3:
+                              type: string
+                            dest_4:
+                              type: string
+                            dest_5:
+                              type: string
+                            dest_6:
+                              type: string
+                            dest_7:
+                              type: string
+                            dest_8:
+                              type: string
+                            dest_9:
+                              type: string
+                            dest_10:
+                              type: string
+                            dest_11:
+                              type: string
+                            dest_12:
+                              type: string
+                            dest_13:
+                              type: string
+                            dest_14:
+                              type: string
+                            dest_15:
+                              type: string
+                            dest_16:
+                              type: string
+                            dest_17:
+                              type: string
+                            dest_18:
+                              type: string
+                            dest_19:
+                              type: string
+                            dest_20:
+                              type: string
+                            dest_21:
+                              type: string
+                            dest_22:
+                              type: string
+                            dest_23:
+                              type: string
+                            dest_24:
+                              type: string
+                            dest_25:
+                              type: string
+                            dest_26:
+                              type: string
+                            dest_27:
+                              type: string
+                            dest_28:
+                              type: string
+                            dest_29:
+                              type: string
+                            dest_30:
+                              type: string
+              examples:
+                Get one itinerary plans successful:
+                  value:
+                    status: true
+                    message: successfuly get data detail plans
+                    data:
+                      id: 1
+                      user_id: 1
+                      city: Jakarta
+                      budget: 1000000
+                      duration: 5
+                      preference_1: Culinary
+                      preference_2: Shopping
+                      is_finished: true
+                      detail_plans:
+                        - id: 1
+                          itinerary_plan_id: 1
+                          dest_1: Monas
+                          dest_2: Kota Tua
+                          dest_3: Taman Mini
+                          dest_4: Ragunan
+                          dest_5: Ancol
+                          dest_6: Museum Nasional
+                          dest_7: Museum Gajah
+                          dest_8: Museum Wayang
+                          dest_9: Museum Bank Indonesia
+                          dest_10: Museum Bahari
+                          dest_11: Museum Seni Rupa dan Keramik
+                          dest_12: Museum Tekstil
+                          dest_13: Museum Sejarah Jakarta
+                          dest_14: Museum Perumusan Naskah Proklamasi
+                          dest_15: Museum Joang 45
+                          dest_16: null
+                          dest_17: null
+                          dest_18: null
+                          dest_19: null
+                          dest_20: null
+                          dest_21: null
+                          dest_22: null
+                          dest_23: null
+                          dest_24: null
+                          dest_25: null
+                          dest_26: null
+                          dest_27: null
+                          dest_28: null
+                          dest_29: null
+                          dest_30: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: itinerary plans not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /detail-itinerary/update/{id}:
+    put:
+      summary: Get point when user finish trip
+      description: That's the API to get point when user finish trip
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the itinerary plans
+          schema:
+            type: integer
+      responses:
+        "201":
+          description: Finish trip
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Finish trip:
+                  value:
+                    status: true
+                    message: congrats you have been finished this trip and you got 150 XP!
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: plan not found
+                    data: null
+                User Not Found:
+                  value:
+                    status: false
+                    message: user not found
+                    data: null
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Level Travelers
+  /level-traveler/create:
+    post:
+      summary: Create Level Traveler
+      description: That's the API to create level traveler
+      tags:
+        - Level Travelers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              name:
+                type: string
+              badge:
+                type: string
+            examples:
+              example-body:
+                value:
+                  name: Beginner
+                  badge: null
+      responses:
+        "201":
+          description: Create level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Create level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly create a new level traveler
+                    data:
+                      name: Beginner
+                      badge: null
+        "409":
+          description: Level traveler already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Name already exist:
+                  value:
+                    status: false
+                    message: name already exist
+        "500":
+          description: Internal Server Error
+  /level-traveler/get-all:
+    get:
+      summary: Get All Level Traveler
+      description: That's the API to get all level traveler
+      tags:
+        - Level Travelers
+      responses:
+        "200":
+          description: Get all level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        badge:
+                          type: string
+              examples:
+                Get all level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly get all data level traveler
+                    data:
+                      - id: 1
+                        name: Beginner
+                        badge: null
+                      - id: 2
+                        name: Intermediate
+                        badge: null
+                      - id: 3
+                        name: Advanced
+                        badge: null
+                      - id: 4
+                        name: Expert
+                        badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /level-traveler/get-one/{id}:
+    get:
+      summary: Get One Level Traveler
+      description: That's the API to get one level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      badge:
+                        type: string
+              examples:
+                Get one level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly get data level traveler
+                    data:
+                      id: 1
+                      name: Beginner
+                      badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /level-traveler/update/{id}:
+    put:
+      summary: Update Level Traveler
+      description: That's the API to update level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              name:
+                type: string
+              badge:
+                type: string
+            examples:
+              example-body:
+                value:
+                  name: Beginner
+                  badge: null
+      responses:
+        "200":
+          description: Update level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly update data level traveler
+        "409":
+          description: Level traveler already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Name already exist:
+                  value:
+                    status: false
+                    message: name already exist
+        "500":
+          description: Internal Server Error
+  /level-traveler/delete/{id}:
+    delete:
+      summary: Delete Level Traveler
+      description: That's the API to delete level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delete level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Delete level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly delete data level traveler
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Profile
+  /account/getAccount:
+    get:
+      summary: Get Account
+      description: That's the API to get account
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get account successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      email_token:
+                        type: string
+                      username:
+                        type: string
+                      address:
+                        type: string
+                      images:
+                        type: string
+                      phone:
+                        type: bigint
+                      role:
+                        type: string
+                      is_verified:
+                        type: boolean
+                      level_traveler:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          badge:
+                            type: string
+              examples:
+                Get account successful:
+                  value:
+                    status: true
+                    message: successfuly get data Account
+                    data:
+                      id: 1
+                      name: John Doe
+                      email: johndoe@gmail.com
+                      email_token: bbd8b9e682322c6c04878f6b0ec049123f1db119e04cdefbe0bcba2d56
+                      username: johndoe
+                      address: Jakarta
+                      images: https://storage.googleapis.com/itinergo-storage/src/Profile.png
+                      phone: 6281234567890
+                      role: USER
+                      is_verified: true
+                      level_traveler:
+                        id: 1
+                        name: Beginner
+                        badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Account Not Found:
+                  value:
+                    status: false
+                    message: account not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /account/updateAccount:
+    put:
+      summary: Update Account
+      description: That's the API to update account
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                images:
+                  type: string
+                  format: binary
+            examples:
+              example-body:
+                value:
+                  name: John Doe
+                  email: johndoe@gmail.com
+      responses:
+        "200":
+          description: Update account successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update account successful:
+                  value:
+                    status: true
+                    message: Account has been updated
+        "500":
+          description: Internal Server Error
+  /account/updatePassword:
+    put:
+      summary: Update Password
+      description: That's the API to update password
+      tags:
+        - Profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+            examples:
+              example-body:
+                value:
+                  old_password: 123456
+                  new_password: 1234567
+      responses:
+        "200":
+          description: Update password successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update password successful:
+                  value:
+                    status: true
+                    message: Password has been updated
+        "401":
+          description: Password not match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Password not match:
+                  value:
+                    status: false
+                    message: password not match
+        "500":
+          description: Internal Server Error
+
+components:
+  schemas: {}
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security schema
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
