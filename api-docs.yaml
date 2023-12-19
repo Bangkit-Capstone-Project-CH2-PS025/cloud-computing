@@ -1692,6 +1692,20 @@ paths:
                   value:
                     status: true
                     message: Account has been updated
+        "409":
+          description: Email already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Email already exist:
+                  value:
+                    status: false
+                    message: email already exist
         "500":
           description: Internal Server Error
   /account/updatePassword:
@@ -1731,7 +1745,21 @@ paths:
                 Update password successful:
                   value:
                     status: true
-                    message: Password has been updated
+                    message: Password updated
+        "400":
+          description: 8 characters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                8 characters:
+                  value:
+                    status: false
+                    message: password must be at least 8 characters
         "401":
           description: Password not match
           content:
@@ -1745,7 +1773,7 @@ paths:
                 Password not match:
                   value:
                     status: false
-                    message: password not match
+                    message: password is wrong
         "500":
           description: Internal Server Error
 
