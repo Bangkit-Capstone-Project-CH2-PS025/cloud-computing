@@ -300,7 +300,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       requestBody:
         content:
           multipart/form-data:
@@ -427,7 +427,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       responses:
         "200":
           description: Get all trip successful
@@ -455,16 +455,18 @@ paths:
                           type: string
                         departure:
                           type: string
-                          format: date
+                          format: date-time
                         until:
                           type: string
-                          format: date
+                          format: date-time
                         persons:
                           type: integer
                         contact:
                           type: bigint
                         image:
                           type: string
+                        is_available:
+                          type: boolean
               examples:
                 Get all trip successful:
                   value:
@@ -475,19 +477,21 @@ paths:
                         user_id: 1
                         city: Jakarta
                         country: Indonesia
-                        departure: 2021-09-30
-                        until: 2021-10-01
+                        departure: "2021-09-30T00:00:00.000Z"
+                        until: "2021-10-01T00:00:00.000Z"
                         persons: 6
                         contact: 6281234567890
+                        is_available: true
                         image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
                       - id: 2
                         user_id: 2
                         city: Bandung
                         country: Indonesia
-                        departure: 2021-09-30
-                        until: 2021-10-01
+                        departure: "2021-09-30T00:00:00.000Z"
+                        until: "2021-10-01T00:00:00.000Z"
                         persons: 6
                         contact: 6281234567890
+                        is_available: true
                         image: https://storage.googleapis.com/itinergo-storage/src/Profile.png
         "404":
           description: Not Found
@@ -518,7 +522,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       responses:
         "200":
           description: Get all trip by user successful
@@ -575,7 +579,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: id
           in: path
@@ -662,7 +666,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: id
           in: path
@@ -760,7 +764,7 @@ paths:
       tags:
         - Find Trip
       security:
-        bearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: id
           in: path
@@ -804,6 +808,464 @@ paths:
         "500":
           description: Internal Server Error
 
+# Itinerary Plans
+  /detail-itinerary/get-all:
+    get:
+      summary: Get All Itinerary Plans
+      description: That's the API to get all itinerary plans
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all itinerary plans successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        city:
+                          type: string
+                        budget:
+                          type: integer
+                        duration:
+                          type: integer
+                        preference_1:
+                          type: string
+                        preference_2:
+                          type: string
+                        is_finished:
+                          type: boolean
+                        detail_plans:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              itinerary_plan_id:
+                                type: integer
+                              dest_1:
+                                type: string
+                              dest_2:
+                                type: string
+                              dest_3:
+                                type: string
+                              dest_4:
+                                type: string
+                              dest_5:
+                                type: string
+                              dest_6:
+                                type: string
+                              dest_7:
+                                type: string
+                              dest_8:
+                                type: string
+                              dest_9:
+                                type: string
+                              dest_10:
+                                type: string
+                              dest_11:
+                                type: string
+                              dest_12:
+                                type: string
+                              dest_13:
+                                type: string
+                              dest_14:
+                                type: string
+                              dest_15:
+                                type: string
+                              dest_16:
+                                type: string
+                              dest_17:
+                                type: string
+                              dest_18:
+                                type: string
+                              dest_19:
+                                type: string
+                              dest_20:
+                                type: string
+                              dest_21:
+                                type: string
+                              dest_22:
+                                type: string
+                              dest_23:
+                                type: string
+                              dest_24:
+                                type: string
+                              dest_25:
+                                type: string
+                              dest_26:
+                                type: string
+                              dest_27:
+                                type: string
+                              dest_28:
+                                type: string
+                              dest_29:
+                                type: string
+                              dest_30:
+                                type: string
+              examples:
+                Get all itinerary plans successful:
+                  value:
+                    status: true
+                    message: successfuly get all data detail plans
+                    data:
+                      - id: 1
+                        user_id: 1
+                        city: Jakarta
+                        budget: 1000000
+                        duration: 5
+                        preference_1: Culinary
+                        preference_2: Shopping
+                        is_finished: true
+                        detail_plans:
+                          - id: 1
+                            itinerary_plan_id: 1
+                            dest_1: Monas
+                            dest_2: Kota Tua
+                            dest_3: Taman Mini
+                            dest_4: Ragunan
+                            dest_5: Ancol
+                            dest_6: Museum Nasional
+                            dest_7: Museum Gajah
+                            dest_8: Museum Wayang
+                            dest_9: Museum Bank Indonesia
+                            dest_10: Museum Bahari
+                            dest_11: Museum Seni Rupa dan Keramik
+                            dest_12: Museum Tekstil
+                            dest_13: Museum Sejarah Jakarta
+                            dest_14: Museum Perumusan Naskah Proklamasi
+                            dest_15: Museum Joang 45
+                            dest_16: null
+                            dest_17: null
+                            dest_18: null
+                            dest_19: null
+                            dest_20: null
+                            dest_21: null
+                            dest_22: null
+                            dest_23: null
+                            dest_24: null
+                            dest_25: null
+                            dest_26: null
+                            dest_27: null
+                            dest_28: null
+                            dest_29: null
+                            dest_30: null
+                      - id: 2
+                        user_id: 2
+                        city: Bandung
+                        budget: 1000000
+                        duration: 3
+                        preference_1: Culinary
+                        preference_2: Shopping
+                        is_finished: true
+                        detail_plans:
+                          - id: 2
+                            itinerary_plan_id: 2
+                            dest_1: Monas
+                            dest_2: Kota Tua
+                            dest_3: Taman Mini
+                            dest_4: Ragunan
+                            dest_5: Ancol
+                            dest_6: Museum Nasional
+                            dest_7: Museum Gajah
+                            dest_8: Museum Wayang
+                            dest_9: Museum Bank Indonesia
+                            dest_10: null
+                            dest_11: null
+                            dest_12: null
+                            dest_13: null
+                            dest_14: null
+                            dest_15: null
+                            dest_16: null
+                            dest_17: null
+                            dest_18: null
+                            dest_19: null
+                            dest_20: null
+                            dest_21: null
+                            dest_22: null
+                            dest_23: null
+                            dest_24: null
+                            dest_25: null
+                            dest_26: null
+                            dest_27: null
+                            dest_28: null
+                            dest_29: null
+                            dest_30: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: itinerary plans not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /detail-itinerary/get-one/{id}:
+    get:
+      summary: Get One Itinerary Plans
+      description: That's the API to get one itinerary plans
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the itinerary plans
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one itinerary plans successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      city:
+                        type: string
+                      budget:
+                        type: integer
+                      duration:
+                        type: integer
+                      preference_1:
+                        type: string
+                      preference_2:
+                        type: string
+                      is_finished:
+                        type: boolean
+                      detail_plans:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            itinerary_plan_id:
+                              type: integer
+                            dest_1:
+                              type: string
+                            dest_2:
+                              type: string
+                            dest_3:
+                              type: string
+                            dest_4:
+                              type: string
+                            dest_5:
+                              type: string
+                            dest_6:
+                              type: string
+                            dest_7:
+                              type: string
+                            dest_8:
+                              type: string
+                            dest_9:
+                              type: string
+                            dest_10:
+                              type: string
+                            dest_11:
+                              type: string
+                            dest_12:
+                              type: string
+                            dest_13:
+                              type: string
+                            dest_14:
+                              type: string
+                            dest_15:
+                              type: string
+                            dest_16:
+                              type: string
+                            dest_17:
+                              type: string
+                            dest_18:
+                              type: string
+                            dest_19:
+                              type: string
+                            dest_20:
+                              type: string
+                            dest_21:
+                              type: string
+                            dest_22:
+                              type: string
+                            dest_23:
+                              type: string
+                            dest_24:
+                              type: string
+                            dest_25:
+                              type: string
+                            dest_26:
+                              type: string
+                            dest_27:
+                              type: string
+                            dest_28:
+                              type: string
+                            dest_29:
+                              type: string
+                            dest_30:
+                              type: string
+              examples:
+                Get one itinerary plans successful:
+                  value:
+                    status: true
+                    message: successfuly get data detail plans
+                    data:
+                      id: 1
+                      user_id: 1
+                      city: Jakarta
+                      budget: 1000000
+                      duration: 5
+                      preference_1: Culinary
+                      preference_2: Shopping
+                      is_finished: true
+                      detail_plans:
+                        - id: 1
+                          itinerary_plan_id: 1
+                          dest_1: Monas
+                          dest_2: Kota Tua
+                          dest_3: Taman Mini
+                          dest_4: Ragunan
+                          dest_5: Ancol
+                          dest_6: Museum Nasional
+                          dest_7: Museum Gajah
+                          dest_8: Museum Wayang
+                          dest_9: Museum Bank Indonesia
+                          dest_10: Museum Bahari
+                          dest_11: Museum Seni Rupa dan Keramik
+                          dest_12: Museum Tekstil
+                          dest_13: Museum Sejarah Jakarta
+                          dest_14: Museum Perumusan Naskah Proklamasi
+                          dest_15: Museum Joang 45
+                          dest_16: null
+                          dest_17: null
+                          dest_18: null
+                          dest_19: null
+                          dest_20: null
+                          dest_21: null
+                          dest_22: null
+                          dest_23: null
+                          dest_24: null
+                          dest_25: null
+                          dest_26: null
+                          dest_27: null
+                          dest_28: null
+                          dest_29: null
+                          dest_30: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: itinerary plans not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /detail-itinerary/update/{id}:
+    put:
+      summary: Get point when user finish trip
+      description: That's the API to get point when user finish trip
+      tags:
+        - Itinerary Plans
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the itinerary plans
+          schema:
+            type: integer
+      responses:
+        "201":
+          description: Finish trip
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Finish trip:
+                  value:
+                    status: true
+                    message: congrats you have been finished this trip and you got 150 XP!
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Itinerary Plans Not Found:
+                  value:
+                    status: false
+                    message: plan not found
+                    data: null
+                User Not Found:
+                  value:
+                    status: false
+                    message: user not found
+                    data: null
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
 
 
 components:
@@ -812,3 +1274,4 @@ components:
     bearerAuth:            # arbitrary name for the security schema
       type: http
       scheme: bearer
+      bearerFormat: JWT
