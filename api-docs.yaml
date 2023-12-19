@@ -1266,6 +1266,296 @@ paths:
         "500":
           description: Internal Server Error
 
+# Level Travelers
+  /level-traveler/create:
+    post:
+      summary: Create Level Traveler
+      description: That's the API to create level traveler
+      tags:
+        - Level Travelers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              name:
+                type: string
+              badge:
+                type: string
+            examples:
+              example-body:
+                value:
+                  name: Beginner
+                  badge: null
+      responses:
+        "201":
+          description: Create level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Create level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly create a new level traveler
+                    data:
+                      name: Beginner
+                      badge: null
+        "409":
+          description: Level traveler already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Name already exist:
+                  value:
+                    status: false
+                    message: name already exist
+        "500":
+          description: Internal Server Error
+  /level-traveler/get-all:
+    get:
+      summary: Get All Level Traveler
+      description: That's the API to get all level traveler
+      tags:
+        - Level Travelers
+      responses:
+        "200":
+          description: Get all level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        badge:
+                          type: string
+              examples:
+                Get all level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly get all data level traveler
+                    data:
+                      - id: 1
+                        name: Beginner
+                        badge: null
+                      - id: 2
+                        name: Intermediate
+                        badge: null
+                      - id: 3
+                        name: Advanced
+                        badge: null
+                      - id: 4
+                        name: Expert
+                        badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /level-traveler/get-one/{id}:
+    get:
+      summary: Get One Level Traveler
+      description: That's the API to get one level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      badge:
+                        type: string
+              examples:
+                Get one level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly get data level traveler
+                    data:
+                      id: 1
+                      name: Beginner
+                      badge: null
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /level-traveler/update/{id}:
+    put:
+      summary: Update Level Traveler
+      description: That's the API to update level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              name:
+                type: string
+              badge:
+                type: string
+            examples:
+              example-body:
+                value:
+                  name: Beginner
+                  badge: null
+      responses:
+        "200":
+          description: Update level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly update data level traveler
+        "409":
+          description: Level traveler already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Name already exist:
+                  value:
+                    status: false
+                    message: name already exist
+        "500":
+          description: Internal Server Error
+  /level-traveler/delete/{id}:
+    delete:
+      summary: Delete Level Traveler
+      description: That's the API to delete level traveler
+      tags:
+        - Level Travelers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the level traveler
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delete level traveler successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Delete level traveler successful:
+                  value:
+                    status: true
+                    message: successfuly delete data level traveler
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Level Traveler Not Found:
+                  value:
+                    status: false
+                    message: level traveler not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
 
 
 components:
