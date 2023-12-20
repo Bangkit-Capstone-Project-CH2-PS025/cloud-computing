@@ -1,9 +1,16 @@
-const { Find_Trip } = require("../../models");
+const { Find_Trip, User } = require("../../models");
 
 module.exports = async (req, res, next) => {
   try {
     const findTrips = await Find_Trip.findAll({
       where: { user_id: req.user.id },
+      include: {
+        model: User,
+        as: "user",
+        attributes: {
+          exclude: ["password", "createdAt", "updatedAt"],
+        },
+      },
     });
 
     if (!findTrips) {

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "travel_budgets",
       });
 
-      User.hasOne(models.Find_Trip, {
+      User.hasMany(models.Find_Trip, {
         foreignKey: "user_id",
         as: "find_trip",
       });
