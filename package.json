@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon -e yaml server.js",
     "start": "node server.js",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles --testTimeout=10000"
   },
