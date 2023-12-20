@@ -15,6 +15,12 @@ tags:
     description: Authentication API
   - name: Find Trip
     description: Find Trip API
+  - name: Itinerary Plans
+    description: Itinerary Plans API
+  - name: Level Travelers
+    description: Level Travelers API
+  - name: Profile
+    description: Profile API
 
 paths:
   /auth/register:
@@ -1692,6 +1698,20 @@ paths:
                   value:
                     status: true
                     message: Account has been updated
+        "409":
+          description: Email already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Email already exist:
+                  value:
+                    status: false
+                    message: email already exist
         "500":
           description: Internal Server Error
   /account/updatePassword:
@@ -1731,7 +1751,21 @@ paths:
                 Update password successful:
                   value:
                     status: true
-                    message: Password has been updated
+                    message: Password updated
+        "400":
+          description: 8 characters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                8 characters:
+                  value:
+                    status: false
+                    message: password must be at least 8 characters
         "401":
           description: Password not match
           content:
@@ -1745,9 +1779,156 @@ paths:
                 Password not match:
                   value:
                     status: false
-                    message: password not match
+                    message: password is wrong
         "500":
           description: Internal Server Error
+
+# Recommendation
+  /itinerary/predict:
+    post:
+      summary: Get Recommendation
+      description: That's the API to get recommendation
+      tags:
+        - Recommendation
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                budget:
+                  type: integer
+                duration:
+                  type: integer
+                user_preferences_1:
+                  type: string
+                user_preferences_2:
+                  type: string
+            examples:
+              example-body:
+                value:
+                  city: bandung
+                  budget: 100000
+                  duration: 1
+                  user_preferences_1: wisata
+                  user_preferences_2: alam
+      responses:
+        "200":
+          description: Get recommendation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      day-1:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            place_name:
+                              type: string
+              examples:
+                Get recommendation successful:
+                  value:
+                    status: true
+                    message: successfuly get data recommendation
+                    data:
+                      day-1:
+                        - id: 1
+                          place_name: Monas
+                        - id: 2
+                          place_name: Kota Tua
+                        - id: 3
+                          place_name: Taman Mini
+  /itinerary/get-recomend:
+    get:
+      summary: Get Recommendation
+      description: That's the API to get recommendation
+      tags:
+        - Recommendation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: place_name
+          in: query
+          required: true
+          description: Name of the place
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Get recommendation successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        place_name:
+                          type: string
+                        description:
+                          type: string
+                        category:
+                          type: string
+                        city:
+                          type: string
+                        province:
+                          type: string
+                        price:
+                          type: integer
+                        rating:
+                          type: float
+                        coordinate:
+                          type: string
+                        lat:
+                          type: float
+                        long:
+                          type: float
+                        metadata:
+                          type: string
+                        dir:
+                          type: string
+                        metadata_tokenized:
+                          type: string
+              examples:
+                Get recommendation successful:
+                  value:
+                    status: true
+                    message: Success
+                    data:
+                      - id: 1
+                        place_name: Taman Film
+                        description: Taman Film adalah salah satu taman tematik dan ruang terbuka publik di Kota Bandung yang terletak di bawah Jembatan Pasupati, Bandung, Jawa Barat. Taman ini diresmikan oleh Wali kota Bandung, Ridwan Kamil, pada tanggal 14 September 2014. Taman ini memiliki konsep bioskop terbuka yang modern agar warga dapat beraktivitas di taman dan mendapat sarana menonton film secara gratis. Taman Film dikelola Komunitas Film Bandung dan Dinas Pertamanan Kota Bandung.
+                        category: Tempat Rekreasi
+                        city: Bandung
+                        province: Jawa Barat
+                        price: 0
+                        rating: 4.5
+                        coordinate: "{-6.1753924,106.8271528}"
+                        lat: -6.1753924
+                        long: 106.8271528
+                        metadata: taman film tempat rekreasi taman film adalah salah satu taman tematik dan ruang terbuka publik di kota bandung yang terletak di bawah jembatan pasupati, bandung, jawa barat. taman ini diresmikan oleh wali kota bandung, ridwan kamil, pada tanggal 14 september 2014. taman ini memiliki konsep bioskop terbuka yang modern agar warga dapat beraktivitas di taman dan mendapat sarana menonton film secara gratis. taman film dikelola komunitas film bandung dan dinas pertamanan kota bandung. bandung
+                        dir: https://storage.googleapis.com/itinergo-storage/src/Monas.jpg
+                        metadata_tokenized: taman film tempat rekreasi taman film adalah salah satu taman tematik dan ruang terbuka publik di kota bandung yang terletak di bawah jembatan pasupati, bandung, jawa barat. taman ini diresmikan oleh wali kota bandung, ridwan kamil, pada tanggal 14 september 2014. taman ini memiliki konsep bioskop terbuka yang modern agar warga dapat beraktivitas di taman dan mendapat sarana menonton film secara gratis. taman film dikelola komunitas film bandung dan dinas pertamanan kota bandung. bandung
 
 components:
   schemas: {}
