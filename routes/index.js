@@ -15,12 +15,12 @@ const { multerUpload } = require("../middlewares/cloudStorage");
 router.use("/auth", auth);
 router.use("/level-traveler", levelTraveler);
 router.use("/visited-place", mid.mustLogin, visitedPlace);
-router.use("/itinerary", recomendation);
+// router.use("/itinerary", recomendation);
 router.use("/travel-tips", travelTips);
 router.use("/account", mid.mustLogin, multerUpload.single("images"), account);
 router.use("/itinerary", mid.mustLogin, recomendation);
 router.use("/detail-itinerary", mid.mustLogin, itineraryPlans);
-router.use("/travel-tips", multerUpload.single("image"), travelTips);
+// router.use("/travel-tips", multerUpload.single("image"), travelTips);
 router.use("/travel-budgets", mid.mustLogin, travelBudgets);
 router.use("/find-trip", mid.mustLogin, findTrip);
 

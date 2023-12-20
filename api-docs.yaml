@@ -21,6 +21,14 @@ tags:
     description: Level Travelers API
   - name: Profile
     description: Profile API
+  - name: Recommendation System
+    description: Recommendation API
+  - name: Travel Budget
+    description: Travel Budget API
+  - name: Travel Tips
+    description: Travel Tips API
+  - name: Visited Place
+    description: Visited Place API
 
 paths:
   /auth/register:
@@ -1789,7 +1797,7 @@ paths:
       summary: Get Recommendation
       description: That's the API to get recommendation
       tags:
-        - Recommendation
+        - Recommendation System
       security:
         - bearerAuth: []
       requestBody:
@@ -1851,12 +1859,32 @@ paths:
                           place_name: Kota Tua
                         - id: 3
                           place_name: Taman Mini
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: data not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
   /itinerary/get-recomend:
     get:
       summary: Get Recommendation
       description: That's the API to get recommendation
       tags:
-        - Recommendation
+        - Recommendation System
       security:
         - bearerAuth: []
       parameters:
@@ -1929,6 +1957,1292 @@ paths:
                         metadata: taman film tempat rekreasi taman film adalah salah satu taman tematik dan ruang terbuka publik di kota bandung yang terletak di bawah jembatan pasupati, bandung, jawa barat. taman ini diresmikan oleh wali kota bandung, ridwan kamil, pada tanggal 14 september 2014. taman ini memiliki konsep bioskop terbuka yang modern agar warga dapat beraktivitas di taman dan mendapat sarana menonton film secara gratis. taman film dikelola komunitas film bandung dan dinas pertamanan kota bandung. bandung
                         dir: https://storage.googleapis.com/itinergo-storage/src/Monas.jpg
                         metadata_tokenized: taman film tempat rekreasi taman film adalah salah satu taman tematik dan ruang terbuka publik di kota bandung yang terletak di bawah jembatan pasupati, bandung, jawa barat. taman ini diresmikan oleh wali kota bandung, ridwan kamil, pada tanggal 14 september 2014. taman ini memiliki konsep bioskop terbuka yang modern agar warga dapat beraktivitas di taman dan mendapat sarana menonton film secara gratis. taman film dikelola komunitas film bandung dan dinas pertamanan kota bandung. bandung
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: data not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /itinerary/calc-carbon:
+    get:
+      summary: Get Carbon Footprint
+      description: That's the API to get carbon footprint
+      tags:
+        - Recommendation System
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get carbon footprint successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      car_price:
+                        type: integer
+                      car_co2:
+                        type: string
+                      bus_price:
+                        type: integer
+                      bus_co2:
+                        type: string
+                      motorbike_price:
+                        type: integer
+                      motorbike_co2:
+                        type: string
+                      total_distance:
+                        type: integer
+                      total_budget:
+                        type: integer
+                      total_days:
+                        type: integer
+                      total_places:
+                        type: integer
+              examples:
+                Get carbon footprint successful:
+                  value:
+                    status: true
+                    message: success
+                    data:
+                      car_price: 100000
+                      car_co2: 21.90 kg CO2
+                      bus_price: 5000
+                      bus_co2: 21.90 kg CO2
+                      motorbike_price: 12000
+                      motorbike_co2: 13.68 kg CO2
+                      total_distance: 133
+                      total_budget: 100000
+                      total_days: 1
+                      total_places: 3
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: data not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Travel budget
+  /travel-budgets/create:
+    post:
+      summary: Create Travel Budget
+      description: That's the API to create travel budget
+      tags:
+        - Travel Budget
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              budget_name:
+                type: string
+              target:
+                type: integer
+              flight:
+                type: integer
+              attractions:
+                type: integer
+              stay:
+                type: integer
+              shopping:
+                type: integer
+              food:
+                type: integer
+              others:
+                type: integer
+            examples:
+              example-body:
+                value:
+                  budget_name: Budget 1
+                  target: 1000000
+                  flight: 100000
+                  attractions: 100000
+                  stay: 100000
+                  shopping: 100000
+                  food: 100000
+                  others: 100000
+      responses:
+        "201":
+          description: Create travel budget successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      budget_name:
+                        type: string
+                      target:
+                        type: integer
+                      flight:
+                        type: integer
+                      attractions:
+                        type: integer
+                      stay:
+                        type: integer
+                      shopping:
+                        type: integer
+                      food:
+                        type: integer
+                      others:
+                        type: integer
+              examples:
+                Create travel budget successful:
+                  value:
+                    status: true
+                    message: successfully created a travel budget
+                    data:
+                      budget_name: Budget 1
+                      target: 1000000
+                      flight: 100000
+                      attractions: 100000
+                      stay: 100000
+                      shopping: 100000
+                      food: 100000
+                      others: 100000
+        "409":
+          description: Budget name already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Travel budget already exist:
+                  value:
+                    status: false
+                    message: budget name already exist
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: data not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /travel-budgets/get-all:
+    get:
+      summary: Get All Travel Budget
+      description: That's the API to get all travel budget
+      tags:
+        - Travel Budget
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all travel budget successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        budget_name:
+                          type: string
+                        target:
+                          type: integer
+                        flight:
+                          type: integer
+                        attractions:
+                          type: integer
+                        stay:
+                          type: integer
+                        shopping:
+                          type: integer
+                        food:
+                          type: integer
+                        others:
+                          type: integer
+              examples:
+                Get all travel budget successful:
+                  value:
+                    status: true
+                    message: successfuly get all data travel budget
+                    data:
+                      - id: 1
+                        budget_name: Budget 1
+                        target: 1000000
+                        flight: 100000
+                        attractions: 100000
+                        stay: 100000
+                        shopping: 100000
+                        food: 100000
+                        others: 100000
+                      - id: 2
+                        budget_name: Budget 2
+                        target: 2000000
+                        flight: 200000
+                        attractions: 200000
+                        stay: 200000
+                        shopping: 200000
+                        food: 200000
+                        others: 200000
+                      - id: 3
+                        budget_name: Budget 3
+                        target: 3000000
+                        flight: 300000
+                        attractions: 300000
+                        stay: 300000
+                        shopping: 300000
+                        food: 300000
+                        others: 300000
+                      - id: 4
+                        budget_name: Budget 4
+                        target: 4000000
+                        flight: 400000
+                        attractions: 400000
+                        stay: 400000
+                        shopping: 400000
+                        food: 400000
+                        others: 400000
+                      - id: 5
+                        budget_name: Budget 5
+                        target: 5000000
+                        flight: 500000
+                        attractions:
+  /travel-budgets/get-one/{id}:
+    get:
+      summary: Get One Travel Budget
+      description: That's the API to get one travel budget
+      tags:
+        - Travel Budget
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the travel budget
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one travel budget successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      budget_name:
+                        type: string
+                      target:
+                        type: integer
+                      flight:
+                        type: integer
+                      attractions:
+                        type: integer
+                      stay:
+                        type: integer
+                      shopping:
+                        type: integer
+                      food:
+                        type: integer
+                      others:
+                        type: integer
+              examples:
+                Get one travel budget successful:
+                  value:
+                    status: true
+                    message: successfuly get all data travel budget
+                    data:
+                      id: 1
+                      budget_name: Budget 1
+                      target: 1000000
+                      flight: 100000
+                      attractions: 100000
+                      stay: 100000
+                      shopping: 100000
+                      food: 100000
+                      others: 100000
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: Travel Budget not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /travel-budgets/update/{id}:
+    put:
+      summary: Update Travel Budget
+      description: That's the API to update travel budget
+      tags:
+        - Travel Budget
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the travel budget
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+              budget_name:
+                type: string
+              target:
+                type: integer
+              flight:
+                type: integer
+              attractions:
+                type: integer
+              stay:
+                type: integer
+              shopping:
+                type: integer
+              food:
+                type: integer
+              others:
+                type: integer
+            examples:
+              example-body:
+                value:
+                  budget_name: Budget 1
+                  target: 1000000
+                  flight: 100000
+                  attractions: 100000
+                  stay: 100000
+                  shopping: 100000
+                  food: 100000
+                  others: 100000
+      responses:
+        "200":
+          description: Update travel budget successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Update travel budget successful:
+                  value:
+                    status: true
+                    message: successfuly update a travel budget
+        "409":
+          description: Budget name already exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Travel budget already exist:
+                  value:
+                    status: false
+                    message: budget name already exist
+        "500":
+          description: Internal Server Error
+  /travel-budgets/delete/{id}:
+    delete:
+      summary: Delete Travel Budget
+      description: That's the API to delete travel budget
+      tags:
+        - Travel Budget
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the travel budget
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delete travel budget successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Delete travel budget successful:
+                  value:
+                    status: true
+                    message: successfuly delete a travel budget
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: budget name not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Travel Tips
+  /travel-tips/get-all:
+    get:
+      summary: Get All Travel Tips
+      description: That's the API to get all travel tips
+      tags:
+        - Travel Tips
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all travel tips successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        author:
+                          type: string
+                        title:
+                          type: string
+                        contents:
+                          type: string
+                        image_cover:
+                          type: string
+                        image_1:
+                          type: string
+                        image_2:
+                          type: string
+                        image_3:
+                          type: string
+                        image_4:
+                          type: string
+                        image_5:
+                          type: string
+                        total_views:
+                          type: integer
+              examples:
+                Get all travel tips successful:
+                  value:
+                    status: true
+                    message: successfuly get all data Travel Tips
+                    data:
+                      - id: 4
+                        user_id: 1
+                        author: John Doe
+                        title: Traveling to Bandung
+                        contents: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl ultric
+                        image_cover: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_1: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_2: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_3: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_4: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_5: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        total_views: 3
+                      - id: 1
+                        user_id: 1
+                        author: John Doe
+                        title: Traveling to Semarang
+                        contents: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl ultric
+                        image_cover: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_1: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_2: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_3: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_4: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_5: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        total_views: 10
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: Travel Tips not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /travel-tips/get-one/{id}:
+    get:
+      summary: Get One Travel Tips
+      description: That's the API to get one travel tips
+      tags:
+        - Travel Tips
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the travel tips
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one travel tips successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      user_id:
+                          type: integer
+                      author:
+                        type: string
+                      title:
+                        type: string
+                      contents:
+                        type: string
+                      image_cover:
+                        type: string
+                      image_1:
+                        type: string
+                      image_2:
+                        type: string
+                      image_3:
+                        type: string
+                      image_4:
+                        type: string
+                      image_5:
+                        type: string
+                      total_views:
+                        type: integer
+              examples:
+                Get one travel tips successful:
+                  value:
+                    status: true
+                    message: successfuly get data Travel Tips
+                    data:
+                      id: 2
+                      user_id: 1
+                      author: John Doe
+                      title: Traveling to Semarang
+                      contents: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl ultric
+                      image_cover: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      image_1: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      image_2: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      image_3: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      image_4: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      image_5: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                      total_views: 10
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: Travel Tips not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /travel-tips/most-views:
+    get:
+      summary: Get Most Views Travel Tips
+      description: That's the API to get most views travel tips
+      tags:
+        - Travel Tips
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get most views travel tips successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        author:
+                          type: string
+                        title:
+                          type: string
+                        contents:
+                          type: string
+                        image_cover:
+                          type: string
+                        image_1:
+                          type: string
+                        image_2:
+                          type: string
+                        image_3:
+                          type: string
+                        image_4:
+                          type: string
+                        image_5:
+                          type: string
+                        total_views:
+                          type: integer
+              examples:
+                Get most views travel tips successful:
+                  value:
+                    status: true
+                    message: successfuly get all data Travel Tips
+                    data:
+                      - id: 4
+                        user_id: 1
+                        author: John Doe
+                        title: Traveling to Bandung
+                        contents: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl ultric
+                        image_cover: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_1: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_2: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_3: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_4: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_5: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        total_views: 30
+                      - id: 1
+                        user_id: 1
+                        author: John Doe
+                        title: Traveling to Semarang
+                        contents: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl ultric
+                        image_cover: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_1: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_2: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_3: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_4: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        image_5: https://storage.googleapis.com/itinergo-storage/src/TravelTips1.jpg
+                        total_views: 10
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: Travel Tips not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+
+# Visited Place
+  /visited-places/create:
+    post:
+      summary: Create Visited Place
+      description: That's the API to create visited place
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                city:
+                  type: string
+                month:
+                  type: string
+                year:
+                  type: integer
+                image:
+                  type: string
+                  format: binary
+              examples:
+                example-body:
+                  value:
+                    country: Indonesia
+                    city: Bandung
+                    month: January
+                    year: 2021
+                    image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace1.jpg
+      responses:
+        "201":
+          description: Create visited place successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      country:
+                        type: string
+                      city:
+                        type: string
+                      month:
+                        type: string
+                      year:
+                        type: integer
+                      image:
+                        type: string
+              examples:
+                Create visited place successful:
+                  value:
+                    status: true
+                    message: successfully create a new visited place and you got 100 XP!
+                    data:
+                      country: Indonesia
+                      city: Bandung
+                      month: January
+                      year: 2021
+                      image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace1.jpg
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples: 
+                Data Not Found:
+                  value:
+                    status: false
+                    message: user not found
+                Not Found:
+                  value:
+                    status: false
+                    message: are you lost?
+        "500":
+          description: Internal Server Error
+  /visited-places/get-all:
+    get:
+      summary: Get All Visited Place
+      description: That's the API to get all visited place
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Get all visited place successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        country:
+                          type: string
+                        city:
+                          type: string
+                        month:
+                          type: string
+                        year:
+                          type: integer
+                        image:
+                          type: string
+              examples:
+                Get all visited place successful:
+                  value:
+                    status: true
+                    message: successfuly get all data visited place
+                    data:
+                      - id: 1
+                        country: Indonesia
+                        city: Bandung
+                        month: January
+                        year: 2021
+                        image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace1.jpg
+                      - id: 2
+                        country: Indonesia
+                        city: Jakarta
+                        month: February
+                        year: 2021
+                        image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace2.jpg
+                      - id: 3
+                        country: Indonesia
+                        city: Surabaya
+                        month: March
+                        year: 2021
+                        image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace3.jpg
+                      - id: 4
+                        country: Indonesia
+                        city: Semarang
+                        month: April
+                        year: 2021
+                        image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace4.jpg
+                      - id: 5
+                        country: Indonesia
+                        city: Yogyakarta
+                        month: May
+                        year: 2021
+                        image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace5.jpg
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+        "500":
+          description: Internal Server Error
+  /visited-places/get-one/{id}:
+    get:
+      summary: Get One Visited Place
+      description: That's the API to get one visited place
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the visited place
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Get one visited place successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      country:
+                        type: string
+                      city:
+                        type: string
+                      month:
+                        type: string
+                      year:
+                        type: integer
+                      image:
+                        type: string
+              examples:
+                Get one visited place successful:
+                  value:
+                    status: true
+                    message: successfuly get data visited place
+                    data:
+                      id: 1
+                      country: Indonesia
+                      city: Bandung
+                      month: January
+                      year: 2021
+                      image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace1.jpg
+        "404": 
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+        "500":
+          description: Internal Server Error
+  /visited-places/update/{id}:
+    put:
+      summary: Update Visited Place
+      description: That's the API to update visited place
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the visited place
+          schema:
+            type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                city:
+                  type: string
+                month:
+                  type: string
+                year:
+                  type: integer
+                image:
+                  type: string
+                  format: binary
+              examples:
+                example-body:
+                  value:
+                    country: Indonesia
+                    city: Bandung
+                    month: January
+                    year: 2021
+                    image: https://storage.googleapis.com/itinergo-storage/src/VisitedPlace1.jpg
+      responses:
+        "200":
+          description: Update visited place successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+              examples:
+                Update visited place successful:
+                  value:
+                    status: true
+                    message: successfully update a visited place
+        "500":
+          description: Internal Server Error
+  /visited-places/delete/{id}:
+    delete:
+      summary: Delete Visited Place
+      description: That's the API to delete visited place
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the visited place
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delete visited place successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+              examples:
+                Delete visited place successful:
+                  value:
+                    status: true
+                    message: successfully delete a visited place
+        "500":
+          description: Internal Server Error
+  /visited-places/count-by-city:
+    get:
+      summary: Count Visited Place By City
+      description: That's the API to count visited place by city
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Count visited place by city successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+                  data:
+                    type: object
+                    properties:
+                      
+                      city:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                            count:
+                              type: integer
+                      count:
+                        type: integer
+              examples:
+                Count visited place by city successful:
+                  value:
+                    status: true
+                    message: successfully count visited place by city
+                    data:
+                      
+                      city:
+                        - city: Bandung
+                          count: 1
+                        - city: Jakarta
+                          count: 2
+                        - city: Surabaya
+                          count: 3
+                        - city: Semarang
+                          count: 4
+                        - city: Yogyakarta
+                          count: 5
+                      count: 5
+        "500":
+          description: Internal Server Error
+  /visited-places/count-by-country:
+    get:
+      summary: Count Visited Place By Country
+      description: That's the API to count visited place by country
+      tags:
+        - Visited Place
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Count visited place by city successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    examples: 
+                      Data Not Found:
+                        value:
+                          status: false
+                          message: user not found
+                      Not Found:
+                        value:
+                          status: false
+                          message: are you lost?
+                  data:
+                    type: object
+                    properties:
+                      country:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            country:
+                              type: string
+                            count:
+                              type: integer
+                      count:
+                        type: integer
+              examples:
+                Count visited place by country successful:
+                  value:
+                    status: true
+                    message: successfully count visited place by country
+                    data:
+                      
+                      country:
+                        - country: Indonesia
+                          count: 16
+                      count: 1
+        "500":
+          description: Internal Server Error
 
 components:
   schemas: {}
