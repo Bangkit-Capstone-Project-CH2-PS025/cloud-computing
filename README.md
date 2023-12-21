@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://storage.googleapis.com/itinergo-storage/src/myimg/Itinergo%20Logo%20with%20Company%20Name.png" alt="Heroku" style="width:45vw" ></a>
+  <img src="https://storage.googleapis.com/itinergo-storage/src/myimg/Itinergo%20Logo%20with%20Company%20Name.png" alt="Heroku" style="width:45vw" >
   <br>
   Cloud Computing Documentation <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="35">
   <br>
@@ -17,7 +17,8 @@ Welcome to the backend repository for our Itinerary Planning Application built w
 
 # Infrastructure Cloud
 
-GAMBAR KENE
+<img src="https://storage.googleapis.com/itinergo-storage/src/myimg/ItinergoApp.drawio_4.png" alt="infrastructure" style="width:70vw" >
+
 
 # Features
 ## 1. Itinerary Support
@@ -111,6 +112,6 @@ We recommend using the tools below to make it easier for you to carry out this p
 
 # API Documentation
 For detailed information on available endpoints and request/response formats, refer to the QRCODE below, or click this [API Docs](http://35.184.3.42:3000/api-docs/)
-<p>
+<p align="center">
 <img src="https://storage.googleapis.com/itinergo-storage/src/myimg/API_Docs.png" title="api docs" alt="api docs" width="200" height="230"/>&nbsp;
 </p>
